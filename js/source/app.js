@@ -29,7 +29,6 @@ class App extends React.Component {
   }
   handleClickRun = (e) => {
     let logikHanding = new LogikHanding();
-      console.log(Db.getAllOpMem());
   }
   render() {
     return (

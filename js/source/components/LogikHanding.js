@@ -12,7 +12,7 @@ constructor() {
   }
   
  sortToArLine (arr) {
- console.log(arr);
+ console.log(arr, 'ttttttttt');
   let i = 1, j = 1;
   let block = {};
   let nRom = false;

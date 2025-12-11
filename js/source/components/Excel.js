@@ -50,7 +50,7 @@ export default class Excel extends React.Component {
   _handleSelectEl = (event) => {
     let value = event.target.value;
     let p = event.target.offsetParent.id.split(',');
-    this.state.data[parseInt(p[0])][parseInt(p[1])] = value;
+    this.state.data[parseInt(p[0])][parseInt(p[1])] = symbolRevers[value];
     Db.setPpz(this.state.data);
   }
   
