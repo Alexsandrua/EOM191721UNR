@@ -32,9 +32,9 @@ export default class Excel extends React.Component {
             this.state.data.map((row, idtr) => {
                 return (    
                     <tr key={idtr} >{
-                        row.map((cell, idx) => {
+                        row.map((cell, idtb) => {
                         
-                            return <td key={idtb} id={idtr + ',' + idtb} onClick={this._onClickTestTb}   >{this._insElement(this.symbolState, cell)} </td>
+                            return <td key={idtb} id={idtr + ',' + idtb}  >{this._insElement(this.symbolState, cell)} </td>
                         })
                     }
                     </tr>
@@ -46,7 +46,7 @@ export default class Excel extends React.Component {
     );
   }
   
-  _handleSelectEl = (event) => {
+  _handleSelectElOld = (event) => {
   // rows, cells
   let _data = [];
   let _cells = [];
@@ -64,9 +64,10 @@ export default class Excel extends React.Component {
     
   }
   
-  _handleSelectEl(event) {
-    console.log(' ++++1 ', event.target.value);
-    console.log(' ++++3 ', event.target.offsetParent.id);
+  _handleSelectEl = (event) => {
+    let value = event.target.value;
+    let p = event.target.offsetParent.id.split(',');
+    this.state.data[parseInt(p[0])][parseInt(p[1])] = value;
   }
   
   _insElement(elem, v){
@@ -75,7 +76,7 @@ export default class Excel extends React.Component {
         for(let key in elem){
           selectElArr = [];
           for(let optn in elem[key]) {
-                selectElArr.push(<option key={optn} onClick={this._onClickTestO}>{elem[key][optn]}</option>);
+                selectElArr.push(<option key={optn} >{elem[key][optn]}</option>);
                 };
                 ogroup.push(<optgroup label={key}>{[...selectElArr]}</optgroup>);
             };
@@ -90,7 +91,7 @@ export default class Excel extends React.Component {
   }
   
   render () {
-    return (<div className="Excel" onChange={this._handleSelectElTest}> { this._renderTable() } </div>)
+    return (<div className="Excel" onChange={this._handleSelectEl}> { this._renderTable() } </div>)
   }
 }
 
