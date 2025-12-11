@@ -1,0 +1,111 @@
+table {
+  border: 1px solid black;
+  margin: 20px;
+}
+
+eSwichMAll. { 
+  backgroundColor: #003366;
+  color: 'white';
+}
+eSwichMLeftDown. { 
+  backgroundColor: #006600;
+  color: 'white';
+}
+eSwichMLeftTop. { 
+  backgroundColor: #996633;
+  color: 'white';
+}
+eSwichMLeftRight. { 
+  backgroundColor: #800000;
+  color: 'white';
+}
+eSwichMRightTop. { 
+  backgroundColor: #993399;
+  color: 'white';
+}
+eSwichMRightDown. { 
+  backgroundColor: #993399;
+  color: 'white';
+}
+eSwichMTopDown. { 
+  backgroundColor: #009933;
+  color: 'white';
+}
+
+eTransistorRightTopDown. { 
+  backgroundColor: #CC9900;
+  color: 'white';
+}
+eTransistorRightLeftDown. { 
+  backgroundColor: #FF3300;
+  color: 'white';
+}
+eTransistorRightDownTop. { 
+  backgroundColor: #00FFCC;
+  color: 'white';
+}
+eTransistorRightLeftTop. { 
+  backgroundColor: #0066FF;
+  color: 'white';
+}
+eTransistorLeftTopDown. { 
+  backgroundColor: #FF0066;
+  color: 'white';
+}
+eTransistorLeftRightDown. { 
+  backgroundColor: #FFFFFF;
+  color: 'white';
+}
+eTransistorLeftDownTop. { 
+  backgroundColor: #CCCC00;
+  color: 'white';
+}
+eTransistorLeftRightTop. { 
+  backgroundColor: #CC6699;
+  color: 'white';
+}
+eTransistorRightTopLeft. { 
+  backgroundColor: #CCCCFF;
+  color: 'white';
+}
+eTransistorRightDownLeft. { 
+  backgroundColor: #99FF66;
+  color: 'white';
+}
+eTransistorTopRightDown. { 
+  backgroundColor: '#660066;
+  color: 'white';
+}
+eTransistorTopLeftDown. { 
+  backgroundColor: #000066;
+  color: 'white';
+}
+
+eConductorAll. { 
+  backgroundColor: #003300;
+  color: 'white';
+}
+eConductorLeftDown. { 
+  backgroundColor: #FF0066;
+  color: 'white';
+}
+eConductorLeftUp. { 
+  backgroundColor: #009900;
+  color: 'white';
+}
+eConductorLeftRight. { 
+  backgroundColor: #CC00FF;
+  color: 'white';
+}
+eConductorRightUp. { 
+  backgroundColor: #FF9966;
+  color: 'white';
+}
+eConductorRightDown. { 
+  backgroundColor: #9966FF;
+  color: 'white';
+}
+eConductorUpDown. { 
+  backgroundColor: 'black';
+  color: 'white';
+}

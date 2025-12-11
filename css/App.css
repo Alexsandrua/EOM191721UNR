@@ -1,0 +1,52 @@
+html {
+ background: white;
+ font: 16 px Arial;
+}
+
+body {
+  background-color: #808080;
+  color: #cccccc;
+  padding: 0px;
+  font-family: Arial;
+  text-align: center;
+  }
+  
+  table {
+    border-collapse: collapse;
+    text-align: center;
+    border: 1px solid;
+  }
+
+select {
+  background-color: #FEE685;
+  border: none;
+  transition-duration: 0.25s;
+  align-items: center;
+  outline: none;
+  padding: 0;
+}
+
+select option {
+border: none;
+  transition-duration: 0.25s;
+  align-items: center;
+  outline: none;
+  opacity: 0.5;
+  background-color: transparent;
+}
+
+textarea {
+  outline: none !important;
+  border: 1px solid #808080;
+  box-shadow: 0 0 10px #cccccc;
+  color: #009900;
+  background-color: #003300;
+}
+
+radio {
+  color: #808080;
+  border: none;
+  outline: none;
+  padding-left: 40px;
+}
+
