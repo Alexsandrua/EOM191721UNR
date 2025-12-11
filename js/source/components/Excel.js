@@ -46,24 +46,6 @@ export default class Excel extends React.Component {
     );
   }
   
-  _handleSelectElOld = (event) => {
-  // rows, cells
-  let _data = [];
-  let _cells = [];
-    for(let key in event.currentTarget.rows){ 
-      for(let kcell in event.currentTarget.rows[key].cells){
-        if(typeof event.currentTarget.rows[key].cells[kcell] == 'object'){  
-          _cells.push(symbolRevers[event.currentTarget.rows[key].cells[kcell].children[0][0].value]);     
-        }
-      }
-      if(0 < _cells.length)
-      _data.push(_cells);
-      _cells = [];
-    }
-    Db.setPpz(_data);
-    
-  }
-  
   _handleSelectEl = (event) => {
     let value = event.target.value;
     let p = event.target.offsetParent.id.split(',');
