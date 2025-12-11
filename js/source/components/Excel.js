@@ -6,6 +6,7 @@ export default class Excel extends React.Component {
     super(props);
      this.data = [];
      this._punchCard();
+     Db.setPpz(this.data);
      this.state = {data: this.data};
      let storData = {}
      this.symbolState = symbolState;
@@ -50,6 +51,7 @@ export default class Excel extends React.Component {
     let value = event.target.value;
     let p = event.target.offsetParent.id.split(',');
     this.state.data[parseInt(p[0])][parseInt(p[1])] = value;
+    Db.setPpz(this.state.data);
   }
   
   _insElement(elem, v){
