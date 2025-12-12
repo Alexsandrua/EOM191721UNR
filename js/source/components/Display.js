@@ -5,6 +5,7 @@ export default class Display extends React.Component {
   constructor(props) {
     super(props);
     this.state = {displayValue: '_'};
+    this.typeInput = 'binare';
   }
   
   componentDidMount() {
@@ -22,22 +23,38 @@ export default class Display extends React.Component {
   }
   
   handleChange = (e) => {
-    const { name, value } = e.target;
-    
+   const { name, value } = e.target;
+   this.typeInput = value;
     this.setState({
       [name]: value,
       displayValue: value
     });
   }
   
+   convertBinToDec(bin) {
+    let dec = 0;
+    let pw = 0;
+    for(let i = bin.length - 1; i >= 0; i--) {
+      if(bin[i] === '_1') {
+        dec += Math.pow(2, pw);
+      }
+      pw++;
+    }
+  return dec;
+ }
+  
   prepareToOutput () {
     let texAr = [], tline = ''; 
     let op = Db.getAllOpMem();
     for(let i in op) {
+      if(this.typeInput === 'binare') {
       tline = op[i].toString().replaceAll(',', '');
       tline = tline.replaceAll('_1', 1);
       tline = tline.replaceAll('_0', 0);
       texAr.push(tline);
+      } else if(this.typeInput === 'decimal') {
+        texAr.push(this.convertBinToDec(op[i]));
+      }
     }
     return texAr;
   }

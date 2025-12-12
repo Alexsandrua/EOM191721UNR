@@ -274,7 +274,7 @@ constructor() {
    return true;
   }
   
-  _convertBinToDec(bin) {
+  convertBinToDec(bin) {
     let dec = 0;
     let pw = 0;
     for(let i = bin.length - 1; i >= 0; i--) {
@@ -325,7 +325,7 @@ constructor() {
    let simar = this._toDoSimArLeng(data['bin1'], data['bin2']);
    data['bin1'] = simar.arr1;
    data['bin2'] = simar.arr2;
-   this._convertBinToDec(data['bin1']) > this._convertBinToDec(data['bin2'])? (a = data['bin1'], b = data['bin2']) : (a = data['bin2'], b = data['bin1'], negative = '|-|');
+   this.convertBinToDec(data['bin1']) > this.convertBinToDec(data['bin2'])? (a = data['bin1'], b = data['bin2']) : (a = data['bin2'], b = data['bin1'], negative = '|-|');
    for(let i = a.length - 1; i >= 0; i--) {
      if(a[i] === '_0' && b[i] !== '_0' && i !== '_0' && b[i] !== 'x') {
        a = this._borrow(i, a);
