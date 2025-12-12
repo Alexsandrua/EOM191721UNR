@@ -6,13 +6,13 @@ constructor() {
     this.biN = {'_1': 1, '_0': 0};
     this.lineAllAr = {};
     this.sortToArLine(Db.getPpz());
+    console.log(' :', this.lineAllAr)
     this.bitZero = [];
     for(let g = 0; g < 10000; g++) this.bitZero.push('_0');
     this.sortMatch();
   }
   
  sortToArLine (arr) {
- console.log(arr, 'ttttttttt');
   let i = 1, j = 1;
   let block = {};
   let nRom = false;
@@ -24,9 +24,13 @@ constructor() {
      block['nRom'] ? block['nRom'].push(e) : block['bin' + i].push(e);
     } else if(e !== 'END') {
         block[e] = e;
-        if(e !== '&i'){
+        if(e !== '&i' && e !== '&o' ){
         i++;
         block['bin' + i] = [];
+        }
+        if(e === '&o'){
+          !block['oRom'] && (block['oRom'] = []);
+          block['oRom'].push(i);
         }
         if(e === '&i')  block['nRom'] = [] ;
     } else {
@@ -51,25 +55,25 @@ constructor() {
      this.symbol.map((act) => {
        if(this.lineAllAr[s][act] && this.lineAllAr[s]['&i']) {
          switch (act) {
-           case '1and':
+           case 'and':
            this.and (this.lineAllAr[s]);
            break;
-           case '1or':
+           case 'or':
            this.or (this.lineAllAr[s]);
            break;
-           case '1not':
+           case 'not':
            this.not (this.lineAllAr[s]);
            break;
-           case '1nand':
+           case 'nand':
            this.nand (this.lineAllAr[s]);
            break;
-           case '1nor':
+           case 'nor':
            this.nor (this.lineAllAr[s]);
            break;
-           case '1xor':
+           case 'xor':
            this.xor (this.lineAllAr[s]);
            break;
-           case '1xnor':
+           case 'xnor':
            this.xnor (this.lineAllAr[s]);
            break;
            case 'add':
@@ -96,7 +100,11 @@ constructor() {
  }
  
  and (data) {
-     let res = ['and'];
+     if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
+     let res = [];
      let l = data['bin1'].length;
      l > data['bin2'].length? l: l = data['bin2'].length;
      for(let i = 0; i < l; i++) {
@@ -108,7 +116,11 @@ constructor() {
  }
  
   or (data) {
-     let res = ['or'];
+     if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
+     let res = [];
      let l = data['bin1'].length;
      l > data['bin2'].length? l: l = data['bin2'].length;
      for(let i = 0; i < l; i++) {
@@ -120,17 +132,21 @@ constructor() {
  }
  
    not (data) {
-     let res = ['not'];
+   data['oRom'] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     let res = [];
      data['bin1'].map((i) => {
        res.push(i === '_1'? '_0' : '_1');
    });
-   
    data['res'] = res;
    this.ppsInput (data)
  }
  
     nand (data) {
-     let res = ['nand'];
+     if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
+     let res = [];
      let l = data['bin1'].length;
      l > data['bin2'].length? l: l = data['bin2'].length;
      for(let i = 0; i < l; i++) {
@@ -142,7 +158,11 @@ constructor() {
  }
  
     nor (data) {
-     let res = ['nor'];
+     if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
+     let res = [];
      let l = data['bin1'].length;
      l > data['bin2'].length? l: l = data['bin2'].length;
      for(let i = 0; i < l; i++) {
@@ -154,7 +174,11 @@ constructor() {
  }
  
    xor (data) {
-     let res = ['xor'];
+     if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
+     let res = [];
      let l = data['bin1'].length;
      l > data['bin2'].length? l: l = data['bin2'].length;
      for(let i = 0; i < l; i++) {
@@ -166,7 +190,11 @@ constructor() {
  }
  
    xnor (data) {
-     let res = ['xnor'];
+     if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
+     let res = [];
      let l = data['bin1'].length;
      l > data['bin2'].length? l: l = data['bin2'].length;
      for(let i = 0; i < l; i++) {
@@ -178,6 +206,10 @@ constructor() {
  }
   
    add (data) {
+     if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
      let res = [];
      let simar = this._toDoSimArLeng(data['bin1'], data['bin2']);
      data['bin1'] = simar.arr1;
@@ -284,6 +316,10 @@ constructor() {
  }
  
   sub(data) {
+   if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
    let resSub = [];
    let a, b, negative;
    let simar = this._toDoSimArLeng(data['bin1'], data['bin2']);
@@ -310,6 +346,10 @@ constructor() {
 }
 
   mul (data) {
+  if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }
     let res = ['mul'];
     let resMul = [];
 
@@ -352,7 +392,11 @@ constructor() {
   this.ppsInput (data)
 }
 
-  div (data) {   
+  div (data) { 
+    if(data['oRom']) {
+       data['oRom'][0] && (data['bin1'] = Db.getOpMem(data['bin1']));
+       data['oRom'][1] && (data['bin1'] = Db.getOpMem(data['bin1']));
+     }  
     let sub1 = [data['bin1'][0]], sub2 = [], res = ['div'], divRes = [];
     let i = 0;
     do{
