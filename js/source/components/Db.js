@@ -6,12 +6,16 @@ class Db {
     this.op = {};
   }
   
-  setPpz (data) {
-    this.ppz = data;
+  setPpz (id, data) {
+    this.ppz[id] = data;
   }
   
-  getPpz () {
-    return this.ppz;
+  getPpz (id) {
+    return this.ppz[id];
+  }
+  
+  deleteAllPpz () {
+    return this.ppz = {};
   }
   
   setOpMem (id, data) {

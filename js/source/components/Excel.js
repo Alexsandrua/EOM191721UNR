@@ -1,15 +1,14 @@
 import React from 'react';
 import Db from './Db';
+import Resource from './Resource';
 
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);
-     this.data = [];
-     this._punchCard();
-     Db.setPpz(this.data);
-     this.state = {data: this.data};
+     Db.setPpz(1, Resource.punchCard);
+     this.state = {data: Resource.punchCard};
      let storData = {}
-     this.symbolState = symbolState;
+     this.symbolState = Resource.symbolState;
   }
   
   _punchCard () {
@@ -50,8 +49,8 @@ export default class Excel extends React.Component {
   _handleSelectEl = (event) => {
     let value = event.target.value;
     let p = event.target.offsetParent.id.split(',');
-    this.state.data[parseInt(p[0])][parseInt(p[1])] = symbolRevers[value];
-    Db.setPpz(this.state.data);
+    this.state.data[parseInt(p[0])][parseInt(p[1])] = Resource.symbolRevers[value];
+    Db.setPpz(1, this.state.data);
   }
   
   _insElement(elem, v){
@@ -79,101 +78,3 @@ export default class Excel extends React.Component {
   }
 }
 
-
-
-let className = {
-      swichManual:{
-      eSwichMAll:'eSwichMAll',
-      eSwichMLeftDown:'eSwichMLeftDown',
-      eSwichMLeftTop:'eSwichMLeftTop',
-      eSwichMLeftRight:'eSwichMLeftRight',
-      eSwichMRightTop:'eSwichMRightTop',
-      eSwichMRightDown:'eSwichMRightDown',
-      eSwichMTopDown:'eSwichMTopDown',
-      },
-      transistor:{
-      eTransistorRightTopDown:'eTransistorRightTopDown',
-      eTransistorRightLeftDown:'eTransistorRightLeftDown',
-      eTransistorRightDownTop:'eTransistorRightDownTop',
-      eTransistorRightLeftTop:'eTransistorRightLeftTop',
-      eTransistorLeftTopDown:'eTransistorLeftTopDown',
-      eTransistorLeftRightDown:'eTransistorLeftRightDown',
-      eTransistorLeftDownTop:'eTransistorLeftDownTop',
-      eTransistorLeftRightTop:'eTransistorLeftRightTop',
-      eTransistorRightTopLeft:'eTransistorRightTopLeft',
-      eTransistorRightDownLeft:'eTransistorRightDownLeft',
-      eTransistorTopRightDown:'eTransistorTopRightDown',
-      eTransistorTopLeftDown:'eTransistorTopLeftDown',
-      },
-      conductor:{
-      eConductorAll:'eConductorAll',
-      eConductorLeftDown:'eConductorLeftDown',
-      eConductorLeftTop:'eConductorLeftUp',
-      eConductorLeftRight:'eConductorLeftRight',
-      eConductorRightTop:'eConductorRightUp',
-      eConductorRightDown:'eConductorRightDown',
-      eConductorTopDown:'eConductorUpDown',
-      }
-    };
-
-        const old_symbolState = {
-               'empty':'\u2205',
-               '_&o':'_&o', 
-               '_&s': '&s',
-               '_|END|': '|END|',
-               '_0': 0,
-               '_1': 1,
-               'not': 'НІ',
-               'and': 'I',
-               'or': 'АБО',
-               'xor': 'І-НІ',
-               'nor': 'АБО-НІ',
-               'subtraction':'-', 
-               'addition':'+', 
-               'multiplication':'*', 
-               'division':'/',
-        };
-        
-        const symbolState = {
-             'operation':{
-               'empty':'\u2205',
-               '&i':'&i', 
-               '&o': '&o',
-               'END': 'END',
-             },
-             'binary':{
-               '_0': 0,
-               '_1': 1,
-             },
-             'logical':{
-               'not': 'НІ',
-               'and': 'I',
-               'or': 'АБО',
-               'xor': 'І-НІ',
-               'nor': 'АБО-НІ',
-             },
-             'arithmetic':{
-               'sub':'-', 
-               'add':'+', 
-               'mul':'*', 
-               'div':'/',
-             },
-        };
-        
-        const symbolRevers = {
-               '\u2205':'empty',
-               '&i':'&i', 
-               '&o': '&o',
-               'END': 'END',
-                0:'_0',
-                1:'_1',
-                'НІ':'not',
-                'I':'and',
-                'АБО':'or',
-                'І-НІ': 'xor',
-                'АБО-НІ': 'nor',
-                '-': 'sub', 
-                '+': 'add', 
-                '*': 'mul', 
-                '/': 'div',
-        };

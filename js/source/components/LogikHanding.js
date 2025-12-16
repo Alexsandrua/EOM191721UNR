@@ -5,7 +5,7 @@ constructor() {
     this.symbol = ['and', 'or', 'not',  'nand', 'nor',  'xor',  'xnor', 'sub','add','mul','div'];
     this.biN = {'_1': 1, '_0': 0};
     this.lineAllAr = {};
-    this.sortToArLine(Db.getPpz());
+    this.sortToArLine(Db.getPpz(1));
     console.log(' :', this.lineAllAr)
     this.bitZero = [];
     for(let g = 0; g < 10000; g++) this.bitZero.push('_0');

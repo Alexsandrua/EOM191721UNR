@@ -62,7 +62,7 @@ export default class Display extends React.Component {
   render() {
     return (
     <div>
-    <p><label>Display:</label></p>
+    <p><label>Монітор:</label></p>
     <textarea 
     name="displayOutput" 
     id="displayOutputId" 
