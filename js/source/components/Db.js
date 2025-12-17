@@ -7,6 +7,12 @@ class Db {
     this.ppzSelectId = 0;
   }
   
+  stateVariables = {
+    ppzSelectId: 0,
+    newProject: 0,
+    cleanCard: 0,
+  }
+  
   setPpz (data) {
     this.ppz.push(data);
   }
@@ -20,7 +26,8 @@ class Db {
   }
   
   deleteAllPpz () {
-    return this.ppz = {};
+     this.ppz = [];
+    
   }
   
   setOpMem (id, data) {
@@ -37,6 +44,10 @@ class Db {
   
   deleteOpMem (id) {
     delete this.op[id];
+  }
+  
+  deleteAllOpMem () {
+    this.op = {};
   }
 
 } 

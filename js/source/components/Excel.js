@@ -9,18 +9,43 @@ export default class Excel extends React.Component {
      this.state = {data: Db.getPpz(0), idCarentCard: 0 };
      let storData = {}
      this.symbolState = Resource.symbolState;
-     this.ppzSelectId = Db.ppzSelectId
+     this.ppzSelectId = Db.stateVariables.ppzSelectId;
   }
   
   
-  carrentCard = () => { 
-    if(Db.ppzSelectId != this.ppzSelectId){
-       this.ppzSelectId = Db.ppzSelectId;
+  stateEvents = () => { 
+    if(Db.stateVariables.ppzSelectId != this.ppzSelectId){
+       this.ppzSelectId = Db.stateVariables.ppzSelectId;
        this.setState({
-         data: Db.getPpz(Db.ppzSelectId),
+         data: Db.getPpz(Db.stateVariables.ppzSelectId),
          idCarentCard: Db.ppzSelectId
        });
      }
+     if(Db.stateVariables.newProject === 1){
+       Db.stateVariables.newProject = 0;
+       Db.stateVariables.ppzSelectId = 0;
+       this.ppzSelectId = 0;
+       Db.deleteAllPpz();
+       Db.setPpz(Resource.punchCard());
+       Db.deleteAllOpMem();
+       this.setState({
+         data: Db.getPpz(Db.stateVariables.ppzSelectId),
+         idCarentCard: Db.ppzSelectId,
+       });
+     }
+     
+     if(Db.stateVariables.cleanCard === 1){
+       Db.stateVariables.cleanCard = 0;
+       Db.stateVariables.ppzSelectId = 0;
+       this.ppzSelectId = 0;
+       Db.deleteAllPpz();
+       Db.setPpz(Resource.punchCard());
+       this.setState({
+         data: Db.getPpz(Db.stateVariables.ppzSelectId),
+         idCarentCard: Db.ppzSelectId,
+       });
+     }
+     
   }
   
   _renderTable = () => {
@@ -78,7 +103,7 @@ export default class Excel extends React.Component {
   }
   
   render = () => {
-   this.intervlLoadCard = setInterval(() => this.carrentCard(), 1000);
+   this.intervlLoadCard = setInterval(() => this.stateEvents(), 1000);
     return (<div className="Excel" onChange={this._handleSelectEl}> { this._renderTable() } </div>)
   }
 }

@@ -13,11 +13,19 @@ export default class PanelAction extends React.Component {
   }
   
   newTaskClick = (r) => {
-    
+    let text = 'Данняі з карт завдання та помʼяті буде стерто';
+    if(confirm(text) == true)
+    Db.stateVariables.newProject = 1;
+    this.activeCards = false;
+    this.setState({activeCards: false});
   }
   
-  cleanClick = (r) => {
-  
+  cleanClick = () => {
+    let text = 'Буде стерто всі данні з карт завдання';
+    if(confirm(text) == true) 
+    Db.stateVariables.cleanCard = 1;
+    this.activeCards = false;
+    this.setState({activeCards: false});
   }
   
   addPerfoocard = (r) => {
@@ -33,7 +41,7 @@ export default class PanelAction extends React.Component {
   }
   
   changeIdCard = (e) => {
-    Db.ppzSelectId = parseInt(e.target.value.split(':')[1]);
+    Db.stateVariables.ppzSelectId = parseInt(e.target.value.split(':')[1]);
   }
   
   buttonAction = () => {
