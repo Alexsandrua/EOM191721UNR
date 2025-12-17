@@ -2,16 +2,21 @@
 
 class Db {
   constructor() {
-    this.ppz = {};
+    this.ppz = [];
     this.op = {};
+    this.ppzSelectId = 0;
   }
   
-  setPpz (id, data) {
-    this.ppz[id] = data;
+  setPpz (data) {
+    this.ppz.push(data);
   }
   
   getPpz (id) {
     return this.ppz[id];
+  }
+  
+  getPpzAll () {
+    return this.ppz;
   }
   
   deleteAllPpz () {

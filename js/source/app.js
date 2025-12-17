@@ -27,7 +27,7 @@ class App extends React.Component {
     <tr><th colspan="2">
     <div>
     <Logo /> -Перфокарта-
-    < Excel/>
+    <Excel />
     </div>
     </th>></tr>
     </tbody></table>

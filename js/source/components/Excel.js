@@ -5,25 +5,25 @@ import Resource from './Resource';
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);
-     Db.setPpz(1, Resource.punchCard);
-     this.state = {data: Resource.punchCard};
+     Db.setPpz(Resource.punchCard());
+     this.state = {data: Db.getPpz(0), idCarentCard: 0 };
      let storData = {}
      this.symbolState = Resource.symbolState;
+     this.ppzSelectId = Db.ppzSelectId
   }
   
-  _punchCard () {
-    let data = [];
-    for(let i = 0;  i < 11; i++) {
-      data[i] = [];
-      for(let j = 0;  j < 12; j++) { // 79
-        data[i].push('empty');
-      }
-    }
-    this.data = data;
+  
+  carrentCard = () => { 
+    if(Db.ppzSelectId != this.ppzSelectId){
+       this.ppzSelectId = Db.ppzSelectId;
+       this.setState({
+         data: Db.getPpz(Db.ppzSelectId),
+         idCarentCard: Db.ppzSelectId
+       });
+     }
   }
   
   _renderTable = () => {
-
     return (
       <table style = {{ width: '100%' }} >
         <tbody>
@@ -33,7 +33,6 @@ export default class Excel extends React.Component {
                 return (    
                     <tr key={idtr} >{
                         row.map((cell, idtb) => {
-                        
                             return <td key={idtb} id={idtr + ',' + idtb}  >{this._insElement(this.symbolState, cell)} </td>
                         })
                     }
@@ -49,8 +48,13 @@ export default class Excel extends React.Component {
   _handleSelectEl = (event) => {
     let value = event.target.value;
     let p = event.target.offsetParent.id.split(',');
-    this.state.data[parseInt(p[0])][parseInt(p[1])] = Resource.symbolRevers[value];
-    Db.setPpz(1, this.state.data);
+    Db.getPpz(Db.ppzSelectId)
+    Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = value; 
+    //Resource.symbolRevers[value];
+   this.setState({
+         data: Db.getPpz(Db.ppzSelectId),
+         idCarentCard: Db.ppzSelectId
+       });
   }
   
   _insElement(elem, v){
@@ -59,21 +63,22 @@ export default class Excel extends React.Component {
         for(let key in elem){
           selectElArr = [];
           for(let optn in elem[key]) {
-                selectElArr.push(<option key={optn} >{elem[key][optn]}</option>);
+                selectElArr.push(<option key={optn}>{elem[key][optn]}</option>);
                 };
                 ogroup.push(<optgroup label={key}>{[...selectElArr]}</optgroup>);
             };
             
     return (
         <form>
-        <select defaultValue={'\u2205'} >
+        <select value={v} >
             {[...ogroup]}
             </select>
         </form>
      );
   }
   
-  render () {
+  render = () => {
+   this.intervlLoadCard = setInterval(() => this.carrentCard(), 1000);
     return (<div className="Excel" onChange={this._handleSelectEl}> { this._renderTable() } </div>)
   }
 }

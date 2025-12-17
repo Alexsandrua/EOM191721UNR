@@ -5,18 +5,19 @@ constructor() {
     this.symbol = ['and', 'or', 'not',  'nand', 'nor',  'xor',  'xnor', 'sub','add','mul','div'];
     this.biN = {'_1': 1, '_0': 0};
     this.lineAllAr = {};
-    this.sortToArLine(Db.getPpz(1));
+    this.sortToArLine(Db.getPpzAll());
     console.log(' :', this.lineAllAr)
     this.bitZero = [];
     for(let g = 0; g < 10000; g++) this.bitZero.push('_0');
     this.sortMatch();
   }
   
- sortToArLine (arr) {
+ sortToArLine (data) {
   let i = 1, j = 1;
   let block = {};
   let nRom = false;
   block['bin' + i] = [];
+  data.map((arr) => {
   arr.map((ars) => {
    ars.map((e) => {
     if(e !== 'empty')
@@ -45,7 +46,7 @@ constructor() {
     
   });
  })
- 
+ })
 }
  
   sortMatch () {
