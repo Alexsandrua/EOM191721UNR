@@ -7,7 +7,7 @@ import Display from './components/Display';
 import PanelAction from './components/PanelAction';
 
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -36,5 +36,5 @@ class App extends React.Component {
   }
 }
 
-const app = ReactDOM.createRoot(document.getElementById('app'));
-app.render(<App />);
+//const app = ReactDOM.createRoot(document.getElementById('app'));
+//app.render(<App />);

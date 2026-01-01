@@ -1,7 +1,7 @@
 import React from 'react'
 import Db from './Db';
-//import {default as axios} from 'axios';
-const axios = require("axios");
+import axios from 'axios';
+
 
 export default class Display extends React.Component {
   constructor(props) {
@@ -30,7 +30,7 @@ export default class Display extends React.Component {
       console.log(res);
     })
     .catch(() => {
-      console.log(error);
+      console.log(e);
     })
     .finally(() => {
       console.log('Finally');
