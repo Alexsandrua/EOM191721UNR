@@ -14,24 +14,24 @@ export default class App extends React.Component {
 
   render() {
     return (
-    <div>
-    <Logo /> -Logiks-
-    <table><tbody><tr>
-    <th>
-    <div>< Display /></div>
-    </th>
-    <th>
-    <div><PanelAction /></div>
-    </th>
-    </tr>
-    <tr><th colspan="2">
-    <div>
-    <Logo /> -Перфокарта-
-    <Excel />
-    </div>
-    </th>></tr>
-    </tbody></table>
-    </div>
+      <div className=" bg-dark text-white " data-bs-theme="dark">
+        <Logo /> -Logiks-
+        <table className='table table-dark'><tbody><tr>
+          <th>
+            <div>< Display /></div>
+          </th>
+          <th>
+            <div><PanelAction /></div>
+          </th>
+        </tr>
+          <tr><th colSpan="2">
+            <div>
+              <Logo /> -Перфокарта-
+              <Excel />
+            </div>
+          </th></tr>
+        </tbody></table>
+      </div>
     );
   }
 }

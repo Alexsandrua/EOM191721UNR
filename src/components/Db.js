@@ -6,50 +6,50 @@ class Db {
     this.op = {};
     this.ppzSelectId = 0;
   }
-  
+
   stateVariables = {
     ppzSelectId: 0,
     newProject: 0,
     cleanCard: 0,
   }
-  
-  setPpz (data) {
+
+  setPpz(data) {
     this.ppz.push(data);
   }
-  
-  getPpz (id) {
+
+  getPpz(id) {
     return this.ppz[id];
   }
-  
-  getPpzAll () {
+
+  getPpzAll() {
     return this.ppz;
   }
-  
-  deleteAllPpz () {
-     this.ppz = [];
-    
+
+  deleteAllPpz() {
+    this.ppz = [];
+
   }
-  
-  setOpMem (id, data) {
+
+  setOpMem(id, data) {
     this.op[id] = data;
   }
-  
-  getOpMem (id) {
+
+  getOpMem(id) {
     return this.op[id];
   }
-  
-  getAllOpMem () {
+
+  getAllOpMem() {
     return this.op;
   }
-  
-  deleteOpMem (id) {
+
+  deleteOpMem(id) {
     delete this.op[id];
   }
-  
-  deleteAllOpMem () {
+
+  deleteAllOpMem() {
     this.op = {};
   }
 
-} 
+}
 
 export default Db = new Db();

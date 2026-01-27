@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({children, style, onClick}) => {
+const Button = ({ children, style, onClick }) => {
   return (
     <button style={style} onClick={onClick}>
       {children}
@@ -20,15 +20,15 @@ class Button_ extends React.Component {
   }
   titleSet(titles) {
     console.log("----TEST1----");
-    this.titleDef =  titles;
+    this.titleDef = titles;
   }
   render() {
     return (
       <button
-      type="button"
-      onClick={this.changeDo}>
-      {this.titleDef}
-    </button>   
-    )   
+        type="button"
+        onClick={this.changeDo}>
+        {this.titleDef}
+      </button>
+    )
   }
 }
