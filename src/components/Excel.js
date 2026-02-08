@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Db from './Db';
 import Resource from './Resource';
-
+import { Button, OverlayTrigger, Tooltip, Modal } from 'react-bootstrap';
+//import Modal from 'react-modal';
+//Modal.setAppElement('#app');
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);
     Db.setPpz(Resource.punchCard());
-    this.state = { data: Db.getPpz(0), idCarentCard: 0 };
-    let storData = {}
+    this.state = { data: Db.getPpz(0), idCarentCard: 0, valueKomirk: '0', showModal: false, show: false };
     this.symbolState = Resource.symbolState;
     this.ppzSelectId = Db.stateVariables.ppzSelectId;
+    this.indexCount = 0;
+    this.showModal = false;
   }
 
 
@@ -56,9 +59,9 @@ export default class Excel extends React.Component {
 
             this.state.data.map((row, idtr) => {
               return (
-                <tr  key={idtr} >{
+                <tr className='p-0 m-0 w-25' key={idtr} >{
                   row.map((cell, idtb) => {
-                    return <td  className='border-0 p-0 m-3' key={idtb} id={idtr + ',' + idtb}  >{this._insElement(this.symbolState, cell)} </td>
+                    return <td className='border-1 p-0 m-3 mx-auto' key={idtb} id={idtr + ',' + idtb} onClick={this._sequentialChoiceClick}  >{cell}</td>//{this._insElement(this.symbolState, cell)} </td>
                   })
                 }
                 </tr>
@@ -70,6 +73,47 @@ export default class Excel extends React.Component {
     );
   }
 
+  _sequentialChoiceClick = (event) => {
+    let v = event.target.id.split(',');
+    if (v.length < 2) v = [0, 0];
+    if (this.indexCount == 0) {
+      this.indexCount++;
+      Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = '0';
+    }
+    else if (this.indexCount == 1) {
+      this.indexCount++;
+      Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = '1';
+    } else {
+      this.showModal = true;
+      Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = "PoP";
+       this.setState({
+        showModal: !this.state.showModal
+      });
+      return 0;
+    }
+
+        this.setState({
+        showModal: this.state.showModal,
+      });
+  }
+  poaplok = () => {
+    return (
+      <Modal
+        show={this.state.showModal}
+        onHide={this._onClickSelectEl}
+        data-keyboard="true"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>This is modal title a</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className=' shadow-lg  bg-dark' data-focus={true} data-show={true}>
+            {this._insElement(this.symbolState)}
+          </div>
+        </Modal.Body>
+      </Modal>
+    );
+  }
   _handleSelectEl = (event) => {
     let value = event.target.value;
     let p = event.target.offsetParent.id.split(',');
@@ -82,7 +126,15 @@ export default class Excel extends React.Component {
     });
   }
 
-  _insElement(elem, v) {
+  _onClickSelectEl = () => {
+    console.log('TEST')
+    this.showModal = false;
+    this.setState({
+      showModal: !this.state.showModal,
+    });
+  }
+
+  _insElement_old(elem, v) {
     let ogroup = []
     let selectElArr = [];
     for (let key in elem) {
@@ -94,17 +146,32 @@ export default class Excel extends React.Component {
     };
 
     return (
-      <form className=' border-0 rounded-4 bg-primary p-0 m-0'>
-        <select className="border-0 rounded-3 bg-primary custom-select shadow-sm p-0 m-0"  defaultValue={v} >
+      <form className='invisible border-0 rounded-4 bg-primary p-0 m-0'>
+        <select className="border-0 rounded-3 bg-primary custom-select shadow-sm p-0 m-0" defaultValue={v} >
           {[...ogroup]}
         </select>
       </form>
     );
   }
 
+  _insElement(elem) {
+    let ogroup = []
+    let selectElArr = [];
+    for (let key in elem) {
+      selectElArr = [];
+      for (let optn in elem[key]) {
+        selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary" onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
+      };
+      selectElArr.unshift(<label className="p-3    text-white bg-dark " >{key}</label>);
+      ogroup.push(<div className="p-0  shadow-lg position-sticky bg-dark " >{[...selectElArr]}</div>);
+    };
+
+    return <div className="p-0 modal-content  shadow-lg position-sticky bg-dark" >{[...ogroup]}</div>;
+  }
+
   render = () => {
     this.intervlLoadCard = setInterval(() => this.stateEvents(), 1000);
-    return (<div className=" table-responsive w-avto" onChange={this._handleSelectEl}> {this._renderTable()} </div>)
+    return (<div> {this.poaplok()} <div className=" table-responsive w-avto" > {this._renderTable()}  </div></div>)//onChange={this._handleSelectEl}> {this._renderTable()} </div>)
   }
 }
 

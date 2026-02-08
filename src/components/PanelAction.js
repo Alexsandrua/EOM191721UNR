@@ -14,7 +14,7 @@ export default class PanelAction extends React.Component {
   }
 
   newTaskClick = (r) => {
-    let text = 'Данняі з карт завдання та помʼяті буде стерто';
+    let text = 'Данні з карт завдання та помʼяті буде стерто';
     if (confirm(text) == true)
       Db.stateVariables.newProject = 1;
     this.activeCards = false;
@@ -38,7 +38,7 @@ export default class PanelAction extends React.Component {
   }
 
   handleClickRun = (e) => {
-    let logikHanding = new LogikHanding();
+    new LogikHanding();
   }
 
   changeIdCard = (e) => {

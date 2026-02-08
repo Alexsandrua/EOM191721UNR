@@ -14,18 +14,20 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className=" bg-dark text-white " data-bs-theme="dark">
-        <Logo /> -Logiks-
-        <table className='table table-dark'><tbody><tr>
+      <div className="container-fluid bg-dark text-white " data-bs-theme="dark">
+        
+        <table className='container-fluid table table-dark'><tbody>
+         <tr><th> <Logo /> -EOM191721UNR- </th></tr> 
+          <tr>
           <th>
             <div>< Display /></div>
           </th>
           <th>
-            <div><PanelAction /></div>
+            <div className='container-fluid'> <PanelAction /></div>
           </th>
         </tr>
           <tr><th colSpan="2">
-            <div>
+            <div className='container-fluid'>
               <Logo /> -Перфокарта-
               <Excel />
             </div>

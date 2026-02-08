@@ -10,7 +10,6 @@ class Resource {
         data[i].push('\u2205');
       }
     }
-    data[0][0] = 'or';
     return data;
   }
 
