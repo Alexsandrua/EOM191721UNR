@@ -12,7 +12,7 @@ export default class Excel extends React.Component {
     this.symbolState = Resource.symbolState;
     this.ppzSelectId = Db.stateVariables.ppzSelectId;
     this.indexCount = 0;
-    this.showModal = false;
+    this.positioCell = 0;
   }
 
 
@@ -75,6 +75,7 @@ export default class Excel extends React.Component {
 
   _sequentialChoiceClick = (event) => {
     let v = event.target.id.split(',');
+    this.positioCell = v;
     if (v.length < 2) v = [0, 0];
     if (this.indexCount == 0) {
       this.indexCount++;
@@ -84,8 +85,8 @@ export default class Excel extends React.Component {
       this.indexCount++;
       Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = '1';
     } else {
-      this.showModal = true;
-      Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = "PoP";
+      this.indexCount = 0;
+      Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = ".";
        this.setState({
         showModal: !this.state.showModal
       });
@@ -117,19 +118,23 @@ export default class Excel extends React.Component {
   _handleSelectEl = (event) => {
     let value = event.target.value;
     let p = event.target.offsetParent.id.split(',');
+    this.positioCell = p;
+    console.log('h', p);
     Db.getPpz(Db.ppzSelectId)
     Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = value;
-    //Resource.symbolRevers[value];
     this.setState({
       data: Db.getPpz(Db.ppzSelectId),
       idCarentCard: Db.ppzSelectId
     });
   }
 
-  _onClickSelectEl = () => {
-    console.log('TEST')
-    this.showModal = false;
+  _onClickSelectEl = (event) => {
+    let value = event.target.value;
+    let p = this.positioCell;
+    Db.getPpz(Db.ppzSelectId)
+    Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = value;
     this.setState({
+      data: Db.getPpz(Db.ppzSelectId),
       showModal: !this.state.showModal,
     });
   }
@@ -160,7 +165,7 @@ export default class Excel extends React.Component {
     for (let key in elem) {
       selectElArr = [];
       for (let optn in elem[key]) {
-        selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary" onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
+        selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary" value={elem[key][optn]} onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
       };
       selectElArr.unshift(<label className="p-3    text-white bg-dark " >{key}</label>);
       ogroup.push(<div className="p-0  shadow-lg position-sticky bg-dark " >{[...selectElArr]}</div>);
@@ -171,7 +176,7 @@ export default class Excel extends React.Component {
 
   render = () => {
     this.intervlLoadCard = setInterval(() => this.stateEvents(), 1000);
-    return (<div> {this.poaplok()} <div className=" table-responsive w-avto" > {this._renderTable()}  </div></div>)//onChange={this._handleSelectEl}> {this._renderTable()} </div>)
+    return (<div> {this.poaplok()} <div className=" table-responsive w-avto" onChange={this._handleSelectEl}> {this._renderTable()}  </div></div>)//onChange={this._handleSelectEl}> {this._renderTable()} </div>)
   }
 }
 
