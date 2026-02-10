@@ -87,15 +87,15 @@ export default class Excel extends React.Component {
     } else {
       this.indexCount = 0;
       Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = ".";
-       this.setState({
+      this.setState({
         showModal: !this.state.showModal
       });
       return 0;
     }
 
-        this.setState({
-        showModal: this.state.showModal,
-      });
+    this.setState({
+      showModal: this.state.showModal,
+    });
   }
   poaplok = () => {
     return (
@@ -137,26 +137,6 @@ export default class Excel extends React.Component {
       data: Db.getPpz(Db.ppzSelectId),
       showModal: !this.state.showModal,
     });
-  }
-
-  _insElement_old(elem, v) {
-    let ogroup = []
-    let selectElArr = [];
-    for (let key in elem) {
-      selectElArr = [];
-      for (let optn in elem[key]) {
-        selectElArr.push(<option className='p-0 m-0' key={optn}>{elem[key][optn]}</option>);
-      };
-      ogroup.push(<optgroup className="p-0 m-0" label={key}>{[...selectElArr]}</optgroup>);
-    };
-
-    return (
-      <form className='invisible border-0 rounded-4 bg-primary p-0 m-0'>
-        <select className="border-0 rounded-3 bg-primary custom-select shadow-sm p-0 m-0" defaultValue={v} >
-          {[...ogroup]}
-        </select>
-      </form>
-    );
   }
 
   _insElement(elem) {
