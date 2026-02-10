@@ -156,7 +156,7 @@ export default class Excel extends React.Component {
 
   render = () => {
     this.intervlLoadCard = setInterval(() => this.stateEvents(), 1000);
-    return (<div> {this.poaplok()} <div className=" table-responsive w-avto" onChange={this._handleSelectEl}> {this._renderTable()}  </div></div>)//onChange={this._handleSelectEl}> {this._renderTable()} </div>)
+    return (<div> {this.poaplok()} <div className=" table-responsive w-avto" > {this._renderTable()}  </div></div>)
   }
 }
 
