@@ -61,7 +61,7 @@ export default class Excel extends React.Component {
               return (
                 <tr className='p-0 m-0 w-25' key={idtr} >{
                   row.map((cell, idtb) => {
-                    return <td className='border-1 p-0 m-3 mx-auto' key={idtb} id={idtr + ',' + idtb} onClick={this._sequentialChoiceClick}  >{cell}</td>//{this._insElement(this.symbolState, cell)} </td>
+                    return <td className='border-1 p-0 m-0 text-center  h6 ml-auto' key={idtb} id={idtr + ',' + idtb} onClick={this._sequentialChoiceClick}  >{cell}</td>//{this._insElement(this.symbolState, cell)} </td>
                   })
                 }
                 </tr>
@@ -117,10 +117,12 @@ export default class Excel extends React.Component {
   }
 
   _onClickSelectEl = (event) => {
-    let value = event.target.value;
-    let p = this.positioCell;
-    Db.getPpz(Db.ppzSelectId)
-    Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = value;
+    if (event.target) {
+      let value = event.target.value;
+      let p = this.positioCell;
+      Db.getPpz(Db.ppzSelectId)
+      Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = value;
+    }
     this.setState({
       data: Db.getPpz(Db.ppzSelectId),
       showModal: !this.state.showModal,
@@ -133,10 +135,10 @@ export default class Excel extends React.Component {
     for (let key in elem) {
       selectElArr = [];
       for (let optn in elem[key]) {
-        selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary" value={elem[key][optn]} onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
+        selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary h6 text-capitalize " value={elem[key][optn]} onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
       };
       selectElArr.unshift(<label className="p-3    text-white bg-dark " >{key}</label>);
-      ogroup.push(<div className="p-0  shadow-lg position-sticky bg-dark " >{[...selectElArr]}</div>);
+      ogroup.push(<div className="p-0  shadow-lg position-sticky bg-dark text-capitalize" >{[...selectElArr]}</div>);
     };
 
     return <div className="p-0 modal-content  shadow-lg position-sticky bg-dark" >{[...ogroup]}</div>;
