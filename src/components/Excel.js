@@ -75,6 +75,13 @@ export default class Excel extends React.Component {
 
   _sequentialChoiceClick = (event) => {
     let v = event.target.id.split(',');
+    if(this.positioCell[0] != v[0] || this.positioCell[1] != v[1]) {
+      if(Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] == '0'){
+        this.indexCount = 1;
+      } else if(Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] == '1'){
+        this.indexCount = 2;
+      } else this.indexCount = 0;
+    }
     this.positioCell = v;
     if (v.length < 2) v = [0, 0];
     if (this.indexCount == 0) {
