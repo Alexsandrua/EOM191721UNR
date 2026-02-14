@@ -3,16 +3,17 @@ import Db from './Db';
 export default class LogikHanding {
   constructor() {
     this.symbol = ['and', 'or', 'not', 'nand', 'nor', 'xor', 'xnor', 'sub', 'add', 'mul', 'div'];
-    this.biN = { '_1': 1, '_0': 0 };
+    //this.biN = { '1': 1, '0': 0 };
     this.lineAllAr = {};
     this.sortToArLine(Db.getPpzAll());
-    console.log(' :', this.lineAllAr)
+    console.log(this.lineAllAr);
     this.bitZero = [];
-    for (let g = 0; g < 10000; g++) this.bitZero.push('_0');
+    for (let g = 0; g < 10000; g++) this.bitZero.push('0');
     this.sortMatch();
   }
 
   sortToArLine(data) {
+    console.log('data  ', data)
     let i = 1, j = 1;
     let block = {};
     let nRom = false;
@@ -20,8 +21,8 @@ export default class LogikHanding {
     data.map((arr) => {
       arr.map((ars) => {
         ars.map((e) => {
-          if (e !== 'empty')
-            if (e === '_1' || e === '_0') {
+          if (e !== 'empty') {
+            if (e === '1' || e === '0') {
               block['nRom'] ? block['nRom'].push(e) : block['bin' + i].push(e);
             } else if (e !== 'END') {
               block[e] = e;
@@ -43,7 +44,7 @@ export default class LogikHanding {
               i = 1
               block['bin' + i] = [];
             }
-
+          }
         });
       })
     })
@@ -109,7 +110,7 @@ export default class LogikHanding {
     let l = data['bin1'].length;
     l > data['bin2'].length ? l : l = data['bin2'].length;
     for (let i = 0; i < l; i++) {
-      res.push(data['bin1'][i] === '_1' && data['bin2'][i] === '_1' ? '_1' : '_0');
+      res.push(data['bin1'][i] === '1' && data['bin2'][i] === '1' ? '1' : '0');
     }
 
     data['res'] = res;
@@ -125,7 +126,7 @@ export default class LogikHanding {
     let l = data['bin1'].length;
     l > data['bin2'].length ? l : l = data['bin2'].length;
     for (let i = 0; i < l; i++) {
-      res.push(data['bin1'][i] === '_1' || data['bin2'][i] === '_1' ? '_1' : '_0');
+      res.push(data['bin1'][i] === '1' || data['bin2'][i] === '1' ? '1' : '0');
     }
 
     data['res'] = res;
@@ -136,7 +137,7 @@ export default class LogikHanding {
     data['oRom'] && (data['bin1'] = Db.getOpMem(data['bin1']));
     let res = [];
     data['bin1'].map((i) => {
-      res.push(i === '_1' ? '_0' : '_1');
+      res.push(i === '1' ? '0' : '1');
     });
     data['res'] = res;
     this.ppsInput(data)
@@ -151,7 +152,7 @@ export default class LogikHanding {
     let l = data['bin1'].length;
     l > data['bin2'].length ? l : l = data['bin2'].length;
     for (let i = 0; i < l; i++) {
-      res.push((data['bin1'][i] === '_0' && data['bin2'][i] === '_0') || (data['bin1'][i] !== data['bin2'][i]) ? '_1' : '_0');
+      res.push((data['bin1'][i] === '0' && data['bin2'][i] === '0') || (data['bin1'][i] !== data['bin2'][i]) ? '1' : '0');
     }
 
     data['res'] = res;
@@ -167,7 +168,7 @@ export default class LogikHanding {
     let l = data['bin1'].length;
     l > data['bin2'].length ? l : l = data['bin2'].length;
     for (let i = 0; i < l; i++) {
-      res.push(data['bin1'][i] === '_0' && data['bin2'][i] === '_0' ? '_1' : '_0');
+      res.push(data['bin1'][i] === '0' && data['bin2'][i] === '0' ? '1' : '0');
     }
 
     data['res'] = res;
@@ -183,7 +184,7 @@ export default class LogikHanding {
     let l = data['bin1'].length;
     l > data['bin2'].length ? l : l = data['bin2'].length;
     for (let i = 0; i < l; i++) {
-      res.push(data['bin1'][i] !== data['bin2'][i] ? '_1' : '_0');
+      res.push(data['bin1'][i] !== data['bin2'][i] ? '1' : '0');
     }
 
     data['res'] = res;
@@ -199,7 +200,7 @@ export default class LogikHanding {
     let l = data['bin1'].length;
     l > data['bin2'].length ? l : l = data['bin2'].length;
     for (let i = 0; i < l; i++) {
-      res.push((data['bin1'][i] === '_0' && data['bin2'][i] === '_0') || (data['bin1'][i] === '_1' && data['bin2'][i] === '_1') ? '_1' : '_0');
+      res.push((data['bin1'][i] === '0' && data['bin2'][i] === '0') || (data['bin1'][i] === '1' && data['bin2'][i] === '1') ? '1' : '0');
     }
 
     data['res'] = res;
@@ -219,36 +220,36 @@ export default class LogikHanding {
 
     for (let i = data['bin1'].length - 1; i >= 0; i--) {
       if (data['bin1'][i] !== data['bin2'][i]) {
-        if (carry === '_1') {
-          if (data['bin1'][i] === '_0') {
-            if (data['bin2'][i] === '_0') {
-              res.unshift('_1')
+        if (carry === '1') {
+          if (data['bin1'][i] === '0') {
+            if (data['bin2'][i] === '0') {
+              res.unshift('1')
             } else {
-              res.unshift('_0');
-              carry = '_1';
+              res.unshift('0');
+              carry = '1';
             }
           } else {
-            if (data['bin2'][i] === '_0') {
-              res.unshift('_0')
-              carry = '_1'
+            if (data['bin2'][i] === '0') {
+              res.unshift('0')
+              carry = '1'
             } else {
-              res.unshift('_1');
-              carry = '_1';
+              res.unshift('1');
+              carry = '1';
             }
           }
-        } else res.unshift('_1');
+        } else res.unshift('1');
 
       } else {
-        if (data['bin1'][i] === '_1' && data['bin2'][i] === '_1') {
-          carry === '_1' ? res.unshift('_1') : res.unshift('_0');
-          carry = '_1'
+        if (data['bin1'][i] === '1' && data['bin2'][i] === '1') {
+          carry === '1' ? res.unshift('1') : res.unshift('0');
+          carry = '1'
         } else {
-          carry === '_1' ? res.unshift('_1') : res.unshift('_0');
+          carry === '1' ? res.unshift('1') : res.unshift('0');
           carry = '';
         }
       }
     }
-    if (carry === '_1') res.unshift('_1');
+    if (carry === '1') res.unshift('1');
     data['res'] = res;
     this.ppsInput(data);
   }
@@ -263,12 +264,12 @@ export default class LogikHanding {
     } else {
       for (let i = 0; i < compare1.length; i++) {
         if (type === '>')
-          if (this.biN[compare1[i]] > this.biN[compare2[i]]) return true;
-          else if (compare1[i] === '_0' && compare1[i] !== compare2[i] && !(this.biN[compare1[i]] > this.biN[compare2[i]]))
+          if (compare1[i] > compare2[i]) return true;
+          else if (compare1[i] === '0' && compare1[i] !== compare2[i] && !(compare1[i] > compare2[i]))
             return false;
           else if (type === '<')
-            if (this.biN[compare1[i]] < this.biN[compare2[i]]) return true;
-            else if (compare1[i] === '_1' && compare1[i] !== compare2[i] && !(this.biN[compare1[i]] < this.biN[compare2[i]]))
+            if (compare1[i] < compare2[i]) return true;
+            else if (compare1[i] === '1' && compare1[i] !== compare2[i] && !(compare1[i] < compare2[i]))
               return false;
       }
     }
@@ -279,7 +280,7 @@ export default class LogikHanding {
     let dec = 0;
     let pw = 0;
     for (let i = bin.length - 1; i >= 0; i--) {
-      if (bin[i] === '_1') {
+      if (bin[i] === '1') {
         dec += Math.pow(2, pw);
       }
       pw++;
@@ -293,9 +294,9 @@ export default class LogikHanding {
       l > arr2.length ? l : l = arr2.length;
       for (let i = 0; i < l; i++) {
         if (arr1.length < arr2.length) {
-          !arr1[i] && arr1.unshift('_0');
+          !arr1[i] && arr1.unshift('0');
         } else {
-          !arr2[i] && arr2.unshift('_0')
+          !arr2[i] && arr2.unshift('0')
         }
       }
     }
@@ -304,12 +305,12 @@ export default class LogikHanding {
 
   _borrow(inx, a) {
     for (let i = inx; i >= 0; i--) {
-      if (inx === i && a[i] === '_0') {
+      if (inx === i && a[i] === '0') {
         a[i] = 2;
-      } else if (a[i] == '_0') {
-        a[i] = '_1';
+      } else if (a[i] == '0') {
+        a[i] = '1';
       } else {
-        a[i] = '_0';
+        a[i] = '0';
         break;
       }
     }
@@ -328,17 +329,17 @@ export default class LogikHanding {
     data['bin2'] = simar.arr2;
     this.convertBinToDec(data['bin1']) > this.convertBinToDec(data['bin2']) ? (a = data['bin1'], b = data['bin2']) : (a = data['bin2'], b = data['bin1'], negative = '|-|');
     for (let i = a.length - 1; i >= 0; i--) {
-      if (a[i] === '_0' && b[i] !== '_0' && i !== '_0' && b[i] !== 'x') {
+      if (a[i] === '0' && b[i] !== '0' && i !== '0' && b[i] !== 'x') {
         a = this._borrow(i, a);
-        resSub.unshift('_1');
-      } else if (a[i] === '_0' && b[i] === '_0') {
-        resSub.unshift('_0');
-      } else if (a[i] === '_1' && b[i] === '_1') {
-        resSub.unshift('_0');
-      } else if (a[i] === '_1' && b[i] === '_0') {
-        resSub.unshift('_1');
-      } else if (a[i] === '_0' && b[i] === 'x') {
-        resSub.unshift('_0');
+        resSub.unshift('1');
+      } else if (a[i] === '0' && b[i] === '0') {
+        resSub.unshift('0');
+      } else if (a[i] === '1' && b[i] === '1') {
+        resSub.unshift('0');
+      } else if (a[i] === '1' && b[i] === '0') {
+        resSub.unshift('1');
+      } else if (a[i] === '0' && b[i] === 'x') {
+        resSub.unshift('0');
       }
     }
     negative && resSub.unshift(negative);
@@ -358,13 +359,13 @@ export default class LogikHanding {
     for (let i = data['bin2'].length - 1; i >= 0; i--) {
       resMul[ix] = [];
       for (let j = data['bin1'].length - 1; j >= 0; j--) {
-        if (data['bin2'][i] === '_0') {
-          resMul[ix].unshift('_0');
-        } else if (data['bin2'][i] === '_1') {
-          if (data['bin1'][j] === '_0')
-            resMul[ix].unshift('_0');
-          else if (data['bin1'][j] === '_1')
-            resMul[ix].unshift('_1');
+        if (data['bin2'][i] === '0') {
+          resMul[ix].unshift('0');
+        } else if (data['bin2'][i] === '1') {
+          if (data['bin1'][j] === '0')
+            resMul[ix].unshift('0');
+          else if (data['bin1'][j] === '1')
+            resMul[ix].unshift('1');
         }
       }
       ix++;
@@ -381,9 +382,9 @@ export default class LogikHanding {
     do {
       a != 0 && b != 1 ? (a++, b++) : 0
       if (!resMul[a] || !resMul[b]) break;
-      this.add({ 'bin1': resMul[a], 'bin2': resMul[b], 'nRom': ['_0', '_1'] })
-      resMul[resMul.length] = this.ppsOutput(['_0', '_1']);
-      this.ppsDelete(['_0', '_1']);
+      this.add({ 'bin1': resMul[a], 'bin2': resMul[b], 'nRom': ['0', '1'] })
+      resMul[resMul.length] = this.ppsOutput(['0', '1']);
+      this.ppsDelete(['0', '1']);
       a++; b++;
       if (!resMul[a] || !resMul[b]) break;
     } while (a < resMul.length)
@@ -404,18 +405,18 @@ export default class LogikHanding {
       if (this.comparison(sub1, data['bin2'], '>')) {
         // sub1 - sub2
         sub2 = data['bin2'];
-        this.sub({ 'bin1': sub1, 'bin2': sub2, 'nRom': ['_1', '_1'] });
-        sub1 = this.ppsOutput(['_1', '_1']);
+        this.sub({ 'bin1': sub1, 'bin2': sub2, 'nRom': ['1', '1'] });
+        sub1 = this.ppsOutput(['1', '1']);
         sub1.push(data['bin1'][0])
-        this.ppsDelete(['_1', '_1']);
-        divRes.push('_1');
+        this.ppsDelete(['1', '1']);
+        divRes.push('1');
       } else {
-        sub2 = ['_0'];
-        this.sub({ 'bin1': sub1, 'bin2': sub2, 'nRom': ['_1', '_1'] });
-        sub1 = this.ppsOutput(['_1', '_1']);
+        sub2 = ['0'];
+        this.sub({ 'bin1': sub1, 'bin2': sub2, 'nRom': ['1', '1'] });
+        sub1 = this.ppsOutput(['1', '1']);
         sub1.push(data['bin1'][i])
-        this.ppsDelete(['_1', '_1']);
-        divRes.push('_0');
+        this.ppsDelete(['1', '1']);
+        divRes.push('0');
       }
       i++
     } while (i < data['bin1'].length)
@@ -450,8 +451,8 @@ const _symbolState = {
     'END': 'END',
   },
   'binary': {
-    '_0': 0,
-    '_1': 1,
+    '0': 0,
+    '1': 1,
   },
   'logical': {
     'not': 'НІ',

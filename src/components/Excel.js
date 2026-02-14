@@ -124,11 +124,13 @@ export default class Excel extends React.Component {
   }
 
   _onClickSelectEl = (event) => {
+    let p = this.positioCell;
     if (event) {
       let value = event.target.value;
-      let p = this.positioCell;
       Db.getPpz(Db.ppzSelectId)
       Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = value;
+    } else {
+      Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = '\u2205';
     }
     this.setState({
       data: Db.getPpz(Db.ppzSelectId),
