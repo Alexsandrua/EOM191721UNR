@@ -47,7 +47,7 @@ export default class Display extends React.Component {
     let dec = 0;
     let pw = 0;
     for (let i = bin.length - 1; i >= 0; i--) {
-      if (bin[i] === '_1') {
+      if (bin[i] === '1') {
         dec += Math.pow(2, pw);
       }
       pw++;
@@ -61,8 +61,8 @@ export default class Display extends React.Component {
     for (let i in op) {
       if (this.typeInput === 'binare') {
         tline = op[i].toString().replaceAll(',', '');
-        tline = tline.replaceAll('_1', 1);
-        tline = tline.replaceAll('_0', 0);
+        tline = tline.replaceAll('1', 1);
+        tline = tline.replaceAll('0', 0);
         texAr.push(tline);
       } else if (this.typeInput === 'decimal') {
         texAr.push(this.convertBinToDec(op[i]));
