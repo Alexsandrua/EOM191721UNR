@@ -6,7 +6,7 @@ export default class LogikHanding {
     //this.biN = { '1': 1, '0': 0 };
     this.lineAllAr = {};
     this.sortToArLine(Db.getPpzAll());
-    console.log(this.lineAllAr);
+    console.log('----',this.lineAllAr);
     this.bitZero = [];
     for (let g = 0; g < 10000; g++) this.bitZero.push('0');
     this.sortMatch();

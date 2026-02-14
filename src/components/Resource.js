@@ -7,7 +7,7 @@ class Resource {
     for (let i = 0; i < 11; i++) {
       data[i] = [];
       for (let j = 0; j < 12; j++) { // 79
-        data[i].push('\u2205');
+        data[i].push('empty');
       }
     }
     return data;
@@ -74,8 +74,8 @@ class Resource {
       'END': 'END',
     },
     'binary': {
-      '_0': 0,
-      '_1': 1,
+      '0': 0,
+      '1': 1,
     },
     'logical': {
       'not': 'НІ',
@@ -92,13 +92,31 @@ class Resource {
     },
   }
 
+  symbolStateList = {
+    'empty': '\u2205',
+    '&i': '&i',
+    '&o': '&o',
+    'END': 'END',
+    '0': 0,
+    '1': 1,
+    'not': 'НІ',
+    'and': 'I',
+    'or': 'АБО',
+    'xor': 'І-НІ',
+    'nor': 'АБО-НІ',
+    'sub': '-',
+    'add': '+',
+    'mul': '*',
+    'div': '/',
+  }
+
   symbolRevers = {
     '\u2205': 'empty',
     '&i': '&i',
     '&o': '&o',
     'END': 'END',
-    0: '_0',
-    1: '_1',
+    0: '0',
+    1: '1',
     'НІ': 'not',
     'I': 'and',
     'АБО': 'or',

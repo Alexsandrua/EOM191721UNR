@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Db from './Db';
 import Resource from './Resource';
-import { Button, OverlayTrigger, Tooltip, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 //import Modal from 'react-modal';
 //Modal.setAppElement('#app');
 export default class Excel extends React.Component {
@@ -10,6 +10,7 @@ export default class Excel extends React.Component {
     Db.setPpz(Resource.punchCard());
     this.state = { data: Db.getPpz(0), idCarentCard: 0, valueKomirk: '0', showModal: false, show: false };
     this.symbolState = Resource.symbolState;
+    this.symbolRevers = Resource.symbolStateList;
     this.ppzSelectId = Db.stateVariables.ppzSelectId;
     this.indexCount = 0;
     this.positioCell = 0;
@@ -61,7 +62,7 @@ export default class Excel extends React.Component {
               return (
                 <tr className='p-0 m-0 w-25' key={idtr} >{
                   row.map((cell, idtb) => {
-                    return <td className='border-1 p-0 m-0 text-center  h6 ml-auto' key={idtb} id={idtr + ',' + idtb} onClick={this._sequentialChoiceClick}  >{cell}</td>//{this._insElement(this.symbolState, cell)} </td>
+                    return <td className='border-1 p-0 m-0 text-center  h6 ml-auto' key={idtr + ',' + idtb} id={idtr + ',' + idtb} onClick={this._sequentialChoiceClick}  >{this.symbolRevers[cell]}</td>//{this._insElement(this.symbolState, cell)} </td>
                   })
                 }
                 </tr>
@@ -75,10 +76,10 @@ export default class Excel extends React.Component {
 
   _sequentialChoiceClick = (event) => {
     let v = event.target.id.split(',');
-    if(this.positioCell[0] != v[0] || this.positioCell[1] != v[1]) {
-      if(Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] == '0'){
+    if (this.positioCell[0] != v[0] || this.positioCell[1] != v[1]) {
+      if (Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] == '0') {
         this.indexCount = 1;
-      } else if(Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] == '1'){
+      } else if (Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] == '1') {
         this.indexCount = 2;
       } else this.indexCount = 0;
     }
@@ -144,7 +145,7 @@ export default class Excel extends React.Component {
     for (let key in elem) {
       selectElArr = [];
       for (let optn in elem[key]) {
-        selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary h6 text-capitalize " value={elem[key][optn]} onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
+        selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary h6 text-capitalize " value={optn} onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
       };
       selectElArr.unshift(<label className="p-3    text-white bg-dark " >{key}</label>);
       ogroup.push(<div className="p-0  shadow-lg position-sticky bg-dark text-capitalize" >{[...selectElArr]}</div>);
