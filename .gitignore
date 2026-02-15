@@ -2,6 +2,7 @@
 node_modules/
 jspm_packages/
 
+
 # Log files
 *.log
 npm-debug.log*
@@ -17,6 +18,7 @@ bundle.ls
 # Build artifacts
 dist/
 build/
+js/build/
 .next/ # For Next.js projects
 out/ # For Next.js projects
 .nuxt/ # For Nuxt.js projects
