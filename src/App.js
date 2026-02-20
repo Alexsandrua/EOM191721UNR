@@ -5,6 +5,7 @@ import Excel from './components/Excel';
 import Db from './components/Db';
 import Display from './components/Display';
 import PanelAction from './components/PanelAction';
+import InfoHelp from './components/InfoHelp';
 
 
 export default class App extends React.Component {
@@ -25,9 +26,7 @@ export default class App extends React.Component {
             <th>
               <div>
                 <div className='container-fluid'> <PanelAction /></div>
-                <div className='container-fluid text-center p-4'> 
-                  <h6 className="w-inline-block" tabIndex="0" data-toggle="tooltip" data-placement="bottom" title="0,0,0,НІ,&i,1,1,1,END : 0,0,0,АБО,1,1,1,1,&i,1,1,1,&i,END" >{"Підсказка -?- наведи"}</h6>
-                  </div>
+                <InfoHelp />
               </div>
             </th>
           </tr>

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Db from './Db';
 import Resource from './Resource';
 import { Button, Modal } from 'react-bootstrap';
-//import Modal from 'react-modal';
-//Modal.setAppElement('#app');
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +52,7 @@ export default class Excel extends React.Component {
 
   _renderTable = () => {
     return (
-      <table className="table table-striped border-0" >
+      <table className="table table-striped border-0 text-white " >
         <tbody>
           {
 
