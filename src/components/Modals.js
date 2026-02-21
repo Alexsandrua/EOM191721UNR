@@ -25,7 +25,7 @@ export default class Modals extends React.Component {
 
     modal = () => {
         return (<div>
-            <button type="button" className="btn btn-info" onClick={this.showModal}>Info</button>
+            <button type="button" className="btn btn-info" onClick={this.showModal}>{this.props.titleBtn}</button>
             <Modal
                 show={this.state.showModal}
                 onHide={this._onClikClose}

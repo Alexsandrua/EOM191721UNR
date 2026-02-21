@@ -1,7 +1,6 @@
 import React from 'react';
 import Db from './Db'
 import LogikHanding from './LogikHanding';
-//import Button from './Button';
 import Resource from './Resource';
 import { Button } from 'react-bootstrap';
 

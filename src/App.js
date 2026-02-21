@@ -6,6 +6,7 @@ import Db from './components/Db';
 import Display from './components/Display';
 import PanelAction from './components/PanelAction';
 import InfoHelp from './components/InfoHelp';
+import ShowOrInCard from './components/ShowOrInCard'
 
 
 export default class App extends React.Component {
@@ -27,6 +28,7 @@ export default class App extends React.Component {
               <div>
                 <div className='container-fluid'> <PanelAction /></div>
                 <InfoHelp />
+                <ShowOrInCard />
               </div>
             </th>
           </tr>
