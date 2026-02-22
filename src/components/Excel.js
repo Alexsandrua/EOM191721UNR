@@ -73,11 +73,12 @@ export default class Excel extends React.Component {
   }
 
   _sequentialChoiceClick = (event) => {
+    let selecId = Db.stateVariables.ppzSelectId;
     let v = event.target.id.split(',');
     if (this.positioCell[0] != v[0] || this.positioCell[1] != v[1]) {
-      if (Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] == '0') {
+      if (Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] == '0') {
         this.indexCount = 1;
-      } else if (Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] == '1') {
+      } else if (Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] == '1') {
         this.indexCount = 2;
       } else this.indexCount = 0;
     }
@@ -85,14 +86,14 @@ export default class Excel extends React.Component {
     if (v.length < 2) v = [0, 0];
     if (this.indexCount == 0) {
       this.indexCount++;
-      Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = '0';
+      Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] = '0';
     }
     else if (this.indexCount == 1) {
       this.indexCount++;
-      Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = '1';
+      Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] = '1';
     } else {
       this.indexCount = 0;
-      Db.getPpz(Db.ppzSelectId)[parseInt(v[0])][parseInt(v[1])] = ".";
+      Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] = ".";
       this.setState({
         showModal: !this.state.showModal
       });
@@ -103,6 +104,7 @@ export default class Excel extends React.Component {
       showModal: this.state.showModal,
     });
   }
+
   poaplok = () => {
     return (
       <Modal
@@ -126,7 +128,6 @@ export default class Excel extends React.Component {
     let p = this.positioCell;
     if (event) {
       let value = event.target.value;
-      Db.getPpz(Db.ppzSelectId)
       Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = value;
     } else {
       Db.getPpz(Db.ppzSelectId)[parseInt(p[0])][parseInt(p[1])] = '\u2205';
