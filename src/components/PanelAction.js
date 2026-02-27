@@ -29,7 +29,7 @@ export default class PanelAction extends React.Component {
   }
 
   addPerfoocard = (r) => {
-    Db.setPpz(Resource.punchCard());
+    Db.addPpz(Resource.punchCard());
     this.indexCard = Db.getPpzAll().length;
     this.insertElemet();
     this.activeCards = true;

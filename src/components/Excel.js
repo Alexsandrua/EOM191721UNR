@@ -48,6 +48,13 @@ export default class Excel extends React.Component {
       });
     }
 
+    if (Db.stateVariables.updateManualCard === 1) {
+      Db.stateVariables.updateManualCard = 0;
+      this.setState({
+        data: Db.getPpz(Db.stateVariables.ppzSelectId),
+        idCarentCard: Db.ppzSelectId,
+      });
+    }
   }
 
   _renderTable = () => {

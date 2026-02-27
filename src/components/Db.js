@@ -11,9 +11,18 @@ class Db {
     ppzSelectId: 0,
     newProject: 0,
     cleanCard: 0,
+    updateManualCard: 0,
   }
 
   setPpz(data) {
+    if (data[0][0] == 'empty') {
+      this.ppz.push(data);
+    } else { 
+      this.ppz = data;
+    }
+  }
+
+  addPpz(data) {
     this.ppz.push(data);
   }
 
