@@ -1,6 +1,5 @@
 import React from 'react'
 import Db from '../resource/Db';
-import axios from 'axios';
 
 
 export default class Display extends React.Component {
@@ -25,16 +24,6 @@ export default class Display extends React.Component {
   }
 
   handleChange = (e) => {
-    axios.get('http://127.0.0.1:3012/test')
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(() => {
-        console.log(e);
-      })
-      .finally(() => {
-        console.log('Finally');
-      })
     const { name, value } = e.target;
     this.typeInput = value;
     this.setState({
