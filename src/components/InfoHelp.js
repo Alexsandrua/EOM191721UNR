@@ -1,6 +1,6 @@
 import React from 'react';
 import Modals from './Modals';
-import Resource from './Resource';
+import Resource from '../resource/Resource';
 
 export default class InfoHelp extends React.Component {
     constructor(props) {

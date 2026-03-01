@@ -1,6 +1,6 @@
 import React from 'react';
 import Modals from './Modals';
-import Db from './Db';
+import Db from '../resource/Db';
 
 export default class ShowOrInCard extends React.Component {
     constructor(props) {

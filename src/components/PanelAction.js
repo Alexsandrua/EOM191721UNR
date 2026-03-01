@@ -1,7 +1,7 @@
 import React from 'react';
-import Db from './Db'
-import LogikHanding from './LogikHanding';
-import Resource from './Resource';
+import Db from '../resource/Db'
+import LogikHanding from '../controllers/LogikHanding';
+import Resource from '../resource/Resource';
 import { Button } from 'react-bootstrap';
 
 export default class PanelAction extends React.Component {

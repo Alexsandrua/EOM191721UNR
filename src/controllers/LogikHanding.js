@@ -1,4 +1,4 @@
-import Db from './Db';
+import Db from '../resource/Db';
 
 export default class LogikHanding {
   constructor() {

@@ -142,6 +142,9 @@ class Resource {
       '2r': "Запис значення можна брати з памʼяті - &o(адреса памʼяті)"
     },
   }
+  meny = {
+    "Punch card": "Перфокарта"
+  }
 }
 
 export default Resource = new Resource()

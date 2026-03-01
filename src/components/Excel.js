@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Db from './Db';
-import Resource from './Resource';
+import Db from '../resource/Db';
+import Resource from '../resource/Resource';
 import { Button, Modal } from 'react-bootstrap';
+
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);

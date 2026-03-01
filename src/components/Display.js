@@ -1,5 +1,5 @@
 import React from 'react'
-import Db from './Db';
+import Db from '../resource/Db';
 import axios from 'axios';
 
 
