@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Db from '../resource/Db';
 import Resource from '../resource/Resource';
 import { Button, Modal } from 'react-bootstrap';
+import Routers from '../routes/Routers';
 
 export default class Excel extends React.Component {
   constructor(props) {
@@ -111,6 +112,9 @@ export default class Excel extends React.Component {
     this.setState({
       showModal: this.state.showModal,
     });
+
+    Routers.postData(Db.getPpz(selecId));
+    Routers.getData();
   }
 
   poaplok = () => {

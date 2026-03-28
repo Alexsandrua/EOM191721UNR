@@ -1,18 +1,25 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
+import  { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import App from './src/App';
 //Import our custom CSS
 import './src/scss/styles.scss';
-//Import all of Bootstrap’s JS
-//import * as bootstrap from 'bootstrap'
 
-
-//import Alert from 'bootstrap/js/dist/alert'
-
-// or, specify which plugins you need:
-//import { Tooltip, Toast, Popover } from 'bootstrap'
-
+const router = createBrowserRouter([
+    {
+        path:"/",
+        element:<Navigate to="/home" replace />,
+    },
+    {
+        path:"/home",
+        element:< App />,
+    },
+])
 
 const motherContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(motherContainer);
-root.render(<App />);
+root.render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+);
