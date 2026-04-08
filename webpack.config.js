@@ -7,6 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     entry: "./index.js",
     output: {
+        publicPath: '/',
         path: path.resolve(__dirname, "dist"),
         filename: "main.js",
     },
@@ -18,6 +19,7 @@ module.exports = {
     },
     devServer: {
         port: "8000",
+        historyApiFallback: true,
         static: {
             directory: path.join(__dirname, "dist"),
         },

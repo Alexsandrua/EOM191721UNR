@@ -114,7 +114,8 @@ export default class Excel extends React.Component {
     });
 
     Routers.postData(Db.getPpz(selecId));
-    Routers.getData();
+    
+    //Routers.getData();
   }
 
   poaplok = () => {

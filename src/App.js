@@ -6,7 +6,6 @@ import PanelAction from './components/PanelAction';
 import InfoHelp from './components/InfoHelp';
 import ShowOrInCard from './components/ShowOrInCard'
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
