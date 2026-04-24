@@ -149,6 +149,7 @@ class Resource {
 
   configs = {
     URL: "http://127.0.0.1:3012/",
+    idCardServer:'',
   }
 }
 

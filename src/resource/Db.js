@@ -1,7 +1,6 @@
-
-
 class Db {
   constructor() {
+    this.idSesion = window.location.pathname.split(':')[1];
     this.ppz = [];
     this.op = {};
     this.ppzSelectId = 0;
@@ -36,8 +35,9 @@ class Db {
 
   deleteAllPpz() {
     this.ppz = [];
-
   }
+
+  
 
   setOpMem(id, data) {
     this.op[id] = data;

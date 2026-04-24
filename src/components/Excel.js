@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import Db from '../resource/Db';
 import Resource from '../resource/Resource';
 import { Button, Modal } from 'react-bootstrap';
-import Routers from '../routes/RoutersCast';
+import RoutersCast from '../routes/RoutersCast';
+
 
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);
-    Db.setPpz(Resource.punchCard());
+    
     this.state = { data: Db.getPpz(0), idCarentCard: 0, valueKomirk: '0', showModal: false, show: false };
     this.symbolState = Resource.symbolState;
     this.symbolRevers = Resource.symbolStateList;
@@ -109,13 +110,11 @@ export default class Excel extends React.Component {
       return 0;
     }
 
+    RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
+
     this.setState({
       showModal: this.state.showModal,
     });
-
-    Routers.postData(Db.getPpz(selecId));
-    
-    //Routers.getData();
   }
 
   poaplok = () => {
@@ -146,6 +145,9 @@ export default class Excel extends React.Component {
     } else {
       Db.getPpz(selecId)[parseInt(p[0])][parseInt(p[1])] = '\u2205';
     }
+
+    RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
+
     this.setState({
       data: Db.getPpz(selecId),
       showModal: !this.state.showModal,

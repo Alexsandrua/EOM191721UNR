@@ -4,7 +4,7 @@ import Excel from './components/Excel';
 import Display from './components/Display';
 import PanelAction from './components/PanelAction';
 import InfoHelp from './components/InfoHelp';
-import ShowOrInCard from './components/ShowOrInCard'
+import ShowOrInCard from './components/ShowOrInCard';
 
 export default class App extends React.Component {
   constructor(props) {
