@@ -4,7 +4,7 @@ import axios from 'axios';
 
 class RoutersCast {
   constructor() {
-    this.URL = Resource.configs.URL;
+    this.hostname = window.location.hostname;
   }
 
   loadDisp = () => {
@@ -13,7 +13,7 @@ class RoutersCast {
 
   getTestId = async () => {
     try {
-      let res = await axios.get(this.URL + `test?id=${Resource.configs.idCardServer}`);
+      let res = await axios.get(`http://${this.hostname}:3012/` + `test?id=${Resource.configs.idCardServer}`);
       return { statuCode: res.status, data: res.data };
     } catch (err) {
       console.error(err);
@@ -22,7 +22,7 @@ class RoutersCast {
   }
 
   getData = () => {
-    axios.get(this.URL + 'data')
+    axios.get(`http://${this.hostname}:3012/` + 'data')
       .then((res) => {
         console.log(res);
       })
@@ -35,7 +35,7 @@ class RoutersCast {
   }
 
   postData = (data, sesionId) => {
-    axios.post(this.URL + 'setcard', {
+    axios.post(`http://${this.hostname}:3012/` + 'setcard', {
       sesionId,
       punchCard: data || '',
     }, {
