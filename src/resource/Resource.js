@@ -6,7 +6,7 @@ class Resource {
     let data = [];
     for (let i = 0; i < 11; i++) {
       data[i] = [];
-      for (let j = 0; j < 12; j++) { // 79
+      for (let j = 0; j < 79; j++) { // 79
         data[i].push('empty');
       }
     }

@@ -62,15 +62,15 @@ export default class Excel extends React.Component {
 
   _renderTable = () => {
     return (
-      <table className="table table-striped border-0 text-white " >
+      <table className="table table-striped border-0 text-white text-center fit-table h6  p-0 m-0 " >
         <tbody>
           {
 
             this.state.data.map((row, idtr) => {
               return (
-                <tr className='p-0 m-0 w-25' key={idtr} >{
+                <tr  key={idtr} >{
                   row.map((cell, idtb) => {
-                    return <td className='border-1 p-0 m-0 text-center  h6 ml-auto' key={idtr + ',' + idtb} id={idtr + ',' + idtb} onClick={this._sequentialChoiceClick}  >{this.symbolRevers[cell]}</td>//{this._insElement(this.symbolState, cell)} </td>
+                    return <td className='p-1 fit-cell' key={idtr + ',' + idtb} id={idtr + ',' + idtb} onClick={this._sequentialChoiceClick}  >{this.symbolRevers[cell]}</td>//{this._insElement(this.symbolState, cell)} </td>
                   })
                 }
                 </tr>
@@ -162,16 +162,16 @@ export default class Excel extends React.Component {
       for (let optn in elem[key]) {
         selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary h6 text-capitalize " value={optn} onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
       };
-      selectElArr.unshift(<label className="p-3    text-white bg-dark " >{key}</label>);
-      ogroup.push(<div className="p-0  shadow-lg position-sticky bg-dark text-capitalize" >{[...selectElArr]}</div>);
+      selectElArr.unshift(<label className="p-3  text-white bg-dark " >{key}</label>);
+      ogroup.push(<div className="p-0  shadow-lg position-sticky bg-dark text-capitalize container  p-0 rounded shadow" >{[...selectElArr]}</div>);
     };
 
-    return <div className="p-0 modal-content  shadow-lg position-sticky bg-dark" >{[...ogroup]}</div>;
+    return <div className="p-0 modal-content  shadow-lg position-sticky bg-dark container  p-0 rounded shadow" >{[...ogroup]}</div>;
   }
 
   render = () => {
     this.intervlLoadCard = setInterval(() => this.stateEvents(), 1000);
-    return (<div> {this.poaplok()} <div className=" table-responsive w-avto" > {this._renderTable()}  </div></div>)
+    return (<div> {this.poaplok()} <div className=" table-responsive w-avto container  p-4 rounded shadow" > {this._renderTable()}  </div></div>)
   }
 }
 

@@ -2,3 +2,15 @@
 //@import "bootstrap/scss/bootstrap";
 @import '~bootstrap/scss/bootstrap';
 //@import 'bootstrap';
+
+        .fit-table {
+            width: max-content !important;
+            table-layout: auto !important;
+        }
+
+        .fit-cell {
+            width: 1px !important;
+            white-space: nowrap !important;
+            padding-left: 8px !important; 
+            padding-right: 8px !important;
+        }
