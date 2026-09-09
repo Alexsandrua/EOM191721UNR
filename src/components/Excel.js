@@ -8,7 +8,7 @@ import RoutersCast from '../routes/RoutersCast';
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = { data: Db.getPpz(0), idCarentCard: 0, valueKomirk: '0', showModal: false, show: false };
     this.symbolState = Resource.symbolState;
     this.symbolRevers = Resource.symbolStateList;
@@ -68,9 +68,16 @@ export default class Excel extends React.Component {
 
             this.state.data.map((row, idtr) => {
               return (
-                <tr  key={idtr} >{
+                <tr key={`row-${idtr}`} >{
                   row.map((cell, idtb) => {
-                    return <td className='p-1 fit-cell' key={idtr + ',' + idtb} id={idtr + ',' + idtb} onClick={this._sequentialChoiceClick}  >{this.symbolRevers[cell]}</td>//{this._insElement(this.symbolState, cell)} </td>
+                    return <td
+                      className='p-1 fit-cell'
+                      key={idtr + ',' + idtb}
+                      data-row={idtr}
+                      data-col={idtb}
+                      onClick={this._sequentialChoiceClick}>
+                      {this.symbolRevers[cell]}
+                    </td>
                   })
                 }
                 </tr>
@@ -82,28 +89,29 @@ export default class Excel extends React.Component {
     );
   }
 
-  _sequentialChoiceClick = (event) => {
+  _sequentialChoiceClick = (e) => {
+    const irow = parseInt(e.currentTarget.dataset.row, 10);
+    const icol = parseInt(e.currentTarget.dataset.col, 10);
+    this.positioCell = { irow, icol }
     let selecId = Db.stateVariables.ppzSelectId;
-    let v = event.target.id.split(',');
-    if (this.positioCell[0] != v[0] || this.positioCell[1] != v[1]) {
-      if (Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] == '0') {
-        this.indexCount = 1;
-      } else if (Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] == '1') {
-        this.indexCount = 2;
-      } else this.indexCount = 0;
-    }
-    this.positioCell = v;
-    if (v.length < 2) v = [0, 0];
+
+    if (Db.getPpz(selecId)[irow][icol] == '0') {
+      this.indexCount = 1;
+    } else if (Db.getPpz(selecId)[irow][icol] == '1') {
+      this.indexCount = 2;
+    } else this.indexCount = 0;
+
+
     if (this.indexCount == 0) {
       this.indexCount++;
-      Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] = '0';
+      Db.getPpz(selecId)[irow][icol] = '0';
     }
     else if (this.indexCount == 1) {
       this.indexCount++;
-      Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] = '1';
+      Db.getPpz(selecId)[irow][icol] = '1';
     } else {
       this.indexCount = 0;
-      Db.getPpz(selecId)[parseInt(v[0])][parseInt(v[1])] = ".";
+      Db.getPpz(selecId)[irow][icol] = ".";
       this.setState({
         showModal: !this.state.showModal
       });
@@ -138,12 +146,12 @@ export default class Excel extends React.Component {
 
   _onClickSelectEl = (event) => {
     let selecId = Db.stateVariables.ppzSelectId;
-    let p = this.positioCell;
+    const { irow, icol } = this.positioCell;
     if (event) {
       let value = event.target.value;
-      Db.getPpz(selecId)[parseInt(p[0])][parseInt(p[1])] = value;
+      Db.getPpz(selecId)[irow][icol] = value;
     } else {
-      Db.getPpz(selecId)[parseInt(p[0])][parseInt(p[1])] = '\u2205';
+      Db.getPpz(selecId)[irow][icol] = '\u2205';
     }
 
     RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
@@ -160,10 +168,18 @@ export default class Excel extends React.Component {
     for (let key in elem) {
       selectElArr = [];
       for (let optn in elem[key]) {
-        selectElArr.push(<Button className="m-1 btn-dark btn-outline-secondary h6 text-capitalize " value={optn} onClick={this._onClickSelectEl}>{elem[key][optn]}</Button>);
+        selectElArr.push(<Button
+          className="m-1 btn-dark btn-outline-secondary h6 text-capitalize "
+          value={optn}
+          key={`el-${elem[key][optn]}-${optn}`}
+          onClick={this._onClickSelectEl}>{elem[key][optn]}
+        </Button>);
       };
-      selectElArr.unshift(<label className="p-3  text-white bg-dark " >{key}</label>);
-      ogroup.push(<div className="p-0  shadow-lg position-sticky bg-dark text-capitalize container  p-0 rounded shadow" >{[...selectElArr]}</div>);
+      selectElArr.unshift(<label className="p-3  text-white bg-dark " key={key} >{key}</label>);
+      ogroup.push(<div
+        className="p-0  shadow-lg position-sticky bg-dark text-capitalize container  p-0 rounded shadow"
+        key={`el-${key}`}
+      >{[...selectElArr]}</div>);
     };
 
     return <div className="p-0 modal-content  shadow-lg position-sticky bg-dark container  p-0 rounded shadow" >{[...ogroup]}</div>;

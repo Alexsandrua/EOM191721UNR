@@ -44,7 +44,7 @@ class RoutersCast {
       }
     })
       .then((res) => {
-        console.log(OK);
+        console.log('OK');
       })
       .catch((e) => {
         console.log(e);
