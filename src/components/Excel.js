@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Db from '../resource/Db';
 import Resource from '../resource/Resource';
 import { Button, Modal } from 'react-bootstrap';
@@ -187,7 +187,8 @@ export default class Excel extends React.Component {
 
   render = () => {
     this.intervlLoadCard = setInterval(() => this.stateEvents(), 1000);
-    return (<div> {this.poaplok()} <div className=" table-responsive w-avto container  p-4 rounded shadow" > {this._renderTable()}  </div></div>)
+    return ( <div className=" table-responsive w-avto container-fluid  p-2 rounded shadow" >  {this.poaplok()}{this._renderTable()}  </div>
+)
   }
 }
 

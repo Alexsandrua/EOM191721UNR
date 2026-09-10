@@ -62,36 +62,65 @@ export default class Display extends React.Component {
 
   render() {
     return (
-      <div>
-        <p><label>Монітор:</label></p>
-        <textarea
-        className="p-3 mb-2 bg-success-subtle text-success-emphasis"
-          name="displayOutput"
-          id="displayOutputId"
-          rows={5} cols={40}
-          readOnly
-          value={this.state.displayValue}
-        />
+      <div className="p-3 bg-dark text-white rounded border border-secondary">
+  {/* Блок монітора */}
+  <div className="mb-3">
+    <label htmlFor="displayOutputId" className="form-label fw-bold text-success-emphasis">
+      Монітор:
+    </label>
+    <textarea
+      className="form-control p-3 bg-success-subtle text-success-emphasis border-success fw-mono"
+      name="displayOutput"
+      id="displayOutputId"
+      rows={5}
+      readOnly
+      value={this.state.displayValue}
+      style={{ resize: 'none' }} // Забороняє користувачу розтягувати вікно монітора
+    />
+  </div>
 
-        <form >
-          <label>Binare:
-            <input type="radio"
-            className="form-check-input form-check-inline"
-              name="typeShou"
-              onChange={this.handleChange}
-              value="binare"
-            />
-          </label>
-          <label>Decimal:
-            <input type="radio"
-            className="form-check-input form-check-inline"
-              name="typeShou"
-              onChange={this.handleChange}
-              value="decimal"
-            />
-          </label>
-        </form>
-      </div>
+  {/* Блок перемикачів (Radio) */}
+ {/* gap-5 робить величезну відстань між елементами форми */}
+<form className="d-flex gap-5 align-items-center mt-4 p-2 w-100">
+  <span className="fw-bold text-info fs-5">Формат:</span>
+
+  {/* Radio 1: Binary */}
+  <div className="form-check m-2 fs-5 fw-semibold text-warning">
+    <input
+      type="radio"
+      className="form-check-input"
+      name="typeShou"
+      id="radioBinary"
+      onChange={this.handleChange}
+      value="binare"
+      checked={this.state.typeShou === 'binare'}
+      style={{ transform: 'scale(1.2)', marginRight: '10px' }} // Збільшує сам кружечок
+    />
+    <label className="form-check-label" htmlFor="radioBinary">
+      Binary
+    </label>
+  </div>
+
+  {/* Radio 2: Decimal */}
+  <div className="form-check m-2 fs-5 fw-semibold text-warning">
+    <input
+      type="radio"
+      className="form-check-input"
+      name="typeShou"
+      id="radioDecimal"
+      onChange={this.handleChange}
+      value="decimal"
+      checked={this.state.typeShou === 'decimal'}
+      style={{ transform: 'scale(1.2)', marginRight: '10px' }}
+    />
+    <label className="form-check-label" htmlFor="radioDecimal">
+      Decimal
+    </label>
+  </div>
+</form>
+
+</div>
+
     )
   }
 }

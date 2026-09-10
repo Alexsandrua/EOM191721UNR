@@ -36,22 +36,33 @@ export default class PanelAction extends React.Component {
     this.setState({ activeCards: true });
   }
 
-  handleClickRun = (e) => {
-    new LogikHanding();
-  }
-
   changeIdCard = (e) => {
     Db.stateVariables.ppzSelectId = parseInt(e.target.value.split(':')[1]);
   }
 
   buttonAction = () => {
     return (
-      <div className="btn-group" role="group" aria-label="Basic example">
-        <Button type="button" className="btn btn-secondary btn-success" onClick={this.newTaskClick}  > Нова задача </Button>
-        <Button type="button" className="btn btn-secondary btn-success" onClick={this.addPerfoocard}  > Додади карту </Button>
-        <Button type="button" className="btn btn-secondary btn-success" onClick={this.cleanClick}  > Очистити </Button>
-        <Button type="button" className="btn btn-secondary btn-danger" onClick={this.handleClickRun}  > Виконати </Button>
+
+      <div className="d-flex flex-wrap gap-2 w-100 justify-content-center justify-content-sm-start" role="group" aria-label="Basic example">
+
+        <Button type="button" className="btn btn-success flex-grow-1 flex-sm-grow-0" onClick={this.newTaskClick}>
+          Нова задача
+        </Button>
+
+        <Button type="button" className="btn btn-success flex-grow-1 flex-sm-grow-0" onClick={this.addPerfoocard}>
+          Додати карту
+        </Button>
+
+        <Button type="button" className="btn btn-success flex-grow-1 flex-sm-grow-0" onClick={this.cleanClick}>
+          Очистити
+        </Button>
+
+        <Button type="button" className="btn btn-danger flex-grow-1 flex-sm-grow-0" onClick={()=>new LogikHanding()}>
+          Виконати
+        </Button>
+
       </div>
+
     );
   }
 

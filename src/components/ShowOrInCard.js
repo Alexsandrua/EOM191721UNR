@@ -42,15 +42,33 @@ export default class ShowOrInCard extends React.Component {
 
     card = () => {
         return (
-            <div className="card" >
-                <form>
-                    <div className="card-body form-group">
-                        <h5 className="card-title">Перфокартка</h5>
-                        <textarea className="card-text container-fluid" rows="5" defaultValue={this.data} onChange={this.buffChange} />
-                        <button type="button" className="btn btn-info" onClick={this.saveChange}>Зберегти зміни</button>
-                    </div>
-                </form>
-            </div>
+            <div className="card bg-dark text-white border-secondary h-100">
+  <form>
+    <div className="card-body d-flex flex-column gap-3">
+      <h5 className="card-title m-0">Перфокартка</h5>
+      
+      <div>
+        <textarea 
+          className="form-control bg-dark text-white border-secondary" 
+          rows="5" 
+          defaultValue={this.data} 
+          onChange={this.buffChange}
+          placeholder="Введіть дані..."
+        />
+      </div>
+
+      <div className="d-flex justify-content-end">
+        <button 
+          type="button" 
+          className="btn btn-info px-4 fw-bold" 
+          onClick={this.saveChange}
+        >
+          Зберегти зміни
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
 
         );
     }
