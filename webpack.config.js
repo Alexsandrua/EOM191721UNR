@@ -21,10 +21,14 @@ module.exports = {
         port: "8000",
         host: '0.0.0.0',
         allowedHosts: [
-            'eom191721unr.org',     // ◄ Замініть на ваше реальне доменне ім'я
+            'eom191721unr.org',
             '://eom191721unr.org',
-            'all'                 // Для страховки, щоб пускало і по IP
+            'all'
         ],
+        client: {
+            webSocketURL: 'auto://0.0.0.0:0/ws',
+            overlay: false,
+        },
         historyApiFallback: true,
         static: {
             directory: path.join(__dirname, "dist"),
