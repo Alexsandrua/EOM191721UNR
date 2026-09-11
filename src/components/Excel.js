@@ -1,6 +1,7 @@
 import React from 'react';
 import Db from '../resource/Db';
 import Resource from '../resource/Resource';
+import StatVar from '../resource/StateVariables';
 import { Button, Modal } from 'react-bootstrap';
 import RoutersCast from '../routes/RoutersCast';
 
@@ -8,65 +9,47 @@ import RoutersCast from '../routes/RoutersCast';
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: Db.getPpz(0),
+      showModal: false,
+      currentCardId: 0,
 
-    this.state = { data: Db.getPpz(0), idCarentCard: 0, valueKomirk: '0', showModal: false, show: false };
+    };
+    this.card = Db.getPpzAll();
     this.symbolState = Resource.symbolState;
     this.symbolRevers = Resource.symbolStateList;
     this.ppzSelectId = Db.stateVariables.ppzSelectId;
     this.indexCount = 0;
-    this.positioCell = 0;
   }
 
 
   stateEvents = () => {
-    if (Db.stateVariables.ppzSelectId != this.ppzSelectId) {
-      this.ppzSelectId = Db.stateVariables.ppzSelectId;
-      this.setState({
-        data: Db.getPpz(Db.stateVariables.ppzSelectId),
-        idCarentCard: Db.ppzSelectId
-      });
-    }
-    if (Db.stateVariables.newProject === 1) {
-      Db.stateVariables.newProject = 0;
-      Db.stateVariables.ppzSelectId = 0;
-      this.ppzSelectId = 0;
+    if (StatVar.newProject === 1) {
+      StatVar.newProject = 0;
+      StatVar.selectCardId = 0;
       Db.deleteAllPpz();
       Db.setPpz(Resource.punchCard());
       Db.deleteAllOpMem();
-      this.setState({
-        data: Db.getPpz(Db.stateVariables.ppzSelectId),
-        idCarentCard: Db.ppzSelectId,
-      });
     }
 
-    if (Db.stateVariables.cleanCard === 1) {
-      Db.stateVariables.cleanCard = 0;
-      Db.stateVariables.ppzSelectId = 0;
-      this.ppzSelectId = 0;
-      Db.deleteAllPpz();
-      Db.setPpz(Resource.punchCard());
-      this.setState({
-        data: Db.getPpz(Db.stateVariables.ppzSelectId),
-        idCarentCard: Db.ppzSelectId,
-      });
+    if (StatVar.aktCleanCard === 1) {
+      StatVar.aktCleanCard = 0;
+      Db.setIdPpz(StatVar.selectCardId, Resource.punchCard());
     }
 
     if (Db.stateVariables.updateManualCard === 1) {
       Db.stateVariables.updateManualCard = 0;
-      this.setState({
-        data: Db.getPpz(Db.stateVariables.ppzSelectId),
-        idCarentCard: Db.ppzSelectId,
-      });
     }
   }
 
   _renderTable = () => {
+    this.stateEvents();
     return (
       <table className="table table-striped border-0 text-white text-center fit-table h6  p-0 m-0 " >
         <tbody>
           {
 
-            this.state.data.map((row, idtr) => {
+            this.card[StatVar.selectCardId].map((row, idtr) => {
               return (
                 <tr key={`row-${idtr}`} >{
                   row.map((cell, idtb) => {
@@ -186,9 +169,8 @@ export default class Excel extends React.Component {
   }
 
   render = () => {
-    this.intervlLoadCard = setInterval(() => this.stateEvents(), 1000);
-    return ( <div className=" table-responsive w-avto container-fluid  p-2 rounded shadow" >  {this.poaplok()}{this._renderTable()}  </div>
-)
+    return (<div className=" table-responsive w-avto container-fluid  p-2 rounded shadow" >  {this.poaplok()}{this._renderTable()}  </div>
+    )
   }
 }
 

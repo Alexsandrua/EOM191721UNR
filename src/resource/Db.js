@@ -21,6 +21,10 @@ class Db {
     }
   }
 
+  setIdPpz (id, data) {
+    this.ppz[id] = data;
+  }
+
   addPpz(data) {
     this.ppz.push(data);
   }

@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from './components/Logo';
 import Excel from './components/Excel';
 import Display from './components/Display';
 import PanelAction from './components/PanelAction';
@@ -9,7 +8,15 @@ import ShowOrInCard from './components/ShowOrInCard';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      actionPanel: false // Спочатку нічого не вибрано
+    };
   }
+
+  setOnActChange = (value, id) => {
+    console.log('VALUE',value)
+    this.setState({ actionPanel: false });
+  };
 
   render() {
     return (
@@ -33,7 +40,7 @@ export default class App extends React.Component {
           <div className="col-12 col-lg-4">
             <div className="d-flex flex-column gap-3 p-3 bg-secondary bg-opacity-10 rounded border border-secondary h-100">
               <div className="w-100">
-                <PanelAction />
+                <PanelAction  onActChange={this.setOnActChange}/>
               </div>
               <InfoHelp />
               <ShowOrInCard />
@@ -50,7 +57,7 @@ export default class App extends React.Component {
               </div>
 
               <div className="overflow-x-auto">
-                <Excel />
+                <Excel  />
               </div>
             </div>
           </div>

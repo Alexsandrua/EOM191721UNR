@@ -35,9 +35,10 @@ class RoutersCast {
   }
 
   postData = (data, sesionId) => {
+    if(data)  return
     axios.post(`http://${this.hostname}:3012/` + 'setcard', {
       sesionId,
-      punchCard: data || '',
+      punchCard: data,
     }, {
       headers: {
         'Content-Type': 'application/json',
