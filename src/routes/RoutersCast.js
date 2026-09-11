@@ -13,7 +13,7 @@ class RoutersCast {
 
   getTestId = async () => {
     try {
-      let res = await axios.get(`http://${this.hostname}:3012/` + `test?id=${Resource.configs.idCardServer}`);
+      let res = await axios.get(`/api/test?id=${Resource.configs.idCardServer}`);//`http://${this.hostname}:3012/` + 
       return { statuCode: res.status, data: res.data };
     } catch (err) {
       console.error(err);
@@ -22,7 +22,7 @@ class RoutersCast {
   }
 
   getData = () => {
-    axios.get(`http://${this.hostname}:3012/` + 'data')
+    axios.get('/api/data')
       .then((res) => {
         console.log(res);
       })
@@ -36,7 +36,7 @@ class RoutersCast {
 
   postData = (data, sesionId) => {
     if(data)  return
-    axios.post(`http://${this.hostname}:3012/` + 'setcard', {
+    axios.post('/api/setcard', {
       sesionId,
       punchCard: data,
     }, {
