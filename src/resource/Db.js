@@ -14,14 +14,10 @@ class Db {
   }
 
   setPpz(data) {
-    if (data[0][0] == 'empty') {
-      this.ppz.push(data);
-    } else { 
-      this.ppz = data;
-    }
+    this.ppz[0] = data;
   }
 
-  setIdPpz (id, data) {
+  setIdPpz(id, data) {
     this.ppz[id] = data;
   }
 
@@ -41,7 +37,7 @@ class Db {
     this.ppz = [];
   }
 
-  
+
 
   setOpMem(id, data) {
     this.op[id] = data;
