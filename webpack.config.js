@@ -12,7 +12,7 @@ module.exports = {
     output: {
         publicPath: 'auto',
         path: path.resolve(__dirname, "dist"),
-        filename: "main.js"
+        filename: isProduction ? "main.[contenthash].js" : "main.js",
     },
     // ◄ ВИПРАВЛЕНО: Об'єднано два блоки resolve в один спільний об'єкт
     resolve: {
