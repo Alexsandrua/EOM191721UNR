@@ -1,13 +1,16 @@
 'use strict'
 
 const path = require("path");
-const autoprefixer = require('autoprefixer')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--mode=production');
 
 module.exports = {
+    mode: isProduction ? 'production' : 'development',
     entry: "./index.js",
     output: {
-        publicPath: 'auto', 
+        publicPath: 'auto',
         path: path.resolve(__dirname, "dist"),
         filename: "main.js"
     },
@@ -19,7 +22,7 @@ module.exports = {
             react: path.join(__dirname, 'node_modules', 'react'),
         },
     },
-    devServer: {
+    devServer: isProduction ? undefined : {
         port: 8000, // Краще вказувати числом, а не рядком
         host: '0.0.0.0',
         allowedHosts: 'all',

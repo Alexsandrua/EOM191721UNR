@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode=development --open --hot",
-    "build": "webpack --mode=production"
+    "build": "NODE_ENV=production webpack --mode=production"
   },
   "author": "tof",
   "license": "ISC",
