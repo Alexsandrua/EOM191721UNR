@@ -7,35 +7,44 @@ import {
 } from 'react-router-dom';
 import App from './src/App';
 import Resource from "./src/resource/Resource";
-import RoutersCast from "./src/routes/RoutersCast";
 import Db from "./src/resource/Db";
-//Import our custom CSS
 import './src/scss/styles.scss';
 
-let appId = Number(window.location.pathname.split(':')[1]);
+// 1. Очищуємо отримання ID. 
+// Якщо шлях наприклад "/1789237364294", то split('/') даст ['', '1789237364294']
+let appId = Number(window.location.pathname.replace('/', ''));
 
-if (!appId) {
+// 2. Якщо ID немає або це не число (NaN) — генеруємо нове
+if (!appId || isNaN(appId)) {
     appId = Date.now();
 }
+
 Resource.configs.idCardServer = appId;
+
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Navigate to={`/id:${appId}`} replace />,
+        // Редиректимо просто на чисте число: /1789237364294
+        element: <Navigate to={`/${appId}`} replace />,
     },
     {
+        // React Router підставить число замість :id
         path: "/:id",
-        element: < App />,
+        element: <App />,
     },
-])
+]);
+
 const motherContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(motherContainer);
+
 Db.setPpz(Resource.punchCard());
+
 root.render(
-            <React.StrictMode>
-                <RouterProvider router={router} />
-            </React.StrictMode>
-        );
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+);
+
 
 /*RoutersCast.getTestId().then((res) => {
     //  let d =  JSON.parse(data.data); 
