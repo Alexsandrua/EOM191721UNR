@@ -7,9 +7,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     entry: "./index.js",
     output: {
-        publicPath: 'auto', //'/',
+        publicPath: '/', 
         path: path.resolve(__dirname, "dist"),
-        filename: "main.js",
+        filename: "main.js"
     },
     // ◄ ВИПРАВЛЕНО: Об'єднано два блоки resolve в один спільний об'єкт
     resolve: {
@@ -22,11 +22,7 @@ module.exports = {
     devServer: {
         port: 8000, // Краще вказувати числом, а не рядком
         host: '0.0.0.0',
-        allowedHosts: [
-            'eom191721unr.org',
-            'www.eom191721unr.org', // Замість "://" додано правильний піддомен www
-            'all'
-        ],
+        allowedHosts: 'all',
         client: {
             webSocketURL: 'auto://0.0.0.0:0/ws',
             overlay: false,
@@ -35,7 +31,7 @@ module.exports = {
         proxy: [
             {
                 context: ['/api'],
-                target: 'http://myserver:3012', // Назва докер-сервісу вашого Node.js бекенду
+                target: 'http://mywebserver:3012', // Назва докер-сервісу вашого Node.js бекенду
                 pathRewrite: { '^/api': '' },
                 changeOrigin: true,
             },
