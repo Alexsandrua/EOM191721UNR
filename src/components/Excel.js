@@ -3,7 +3,7 @@ import Db from '../resource/Db';
 import Resource from '../resource/Resource';
 import StatVar from '../resource/StateVariables';
 import { Button, Modal } from 'react-bootstrap';
-import RoutersCast from '../routes/RoutersCast';
+//import RoutersCast from '../routes/RoutersCast';
 
 
 export default class Excel extends React.Component {
@@ -101,7 +101,7 @@ export default class Excel extends React.Component {
       return 0;
     }
 
-    RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
+   // RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
 
     this.setState({
       showModal: this.state.showModal,
@@ -137,7 +137,7 @@ export default class Excel extends React.Component {
       Db.getPpz(selecId)[irow][icol] = '\u2205';
     }
 
-    RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
+    //RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
 
     this.setState({
       data: Db.getPpz(selecId),

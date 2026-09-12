@@ -30,7 +30,14 @@ const router = createBrowserRouter([
 ])
 const motherContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(motherContainer);
-RoutersCast.getTestId().then((res) => {
+Db.setPpz(Resource.punchCard());
+root.render(
+            <React.StrictMode>
+                <RouterProvider router={router} />
+            </React.StrictMode>
+        );
+
+/*RoutersCast.getTestId().then((res) => {
     //  let d =  JSON.parse(data.data); 
     if (res.statuCode === 200) {
         Db.setPpz(res.data.punchCard);
@@ -51,5 +58,5 @@ RoutersCast.getTestId().then((res) => {
     }
 }).catch((e) => {
     console.error(e);
-})
+})*/
 

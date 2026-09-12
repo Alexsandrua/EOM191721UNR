@@ -4,7 +4,6 @@ import StatVar from '../resource/StateVariables';
 import LogikHanding from '../controllers/LogikHanding';
 import Resource from '../resource/Resource';
 import { Button } from 'react-bootstrap';
-import RoutersCast from '../routes/RoutersCast';
 import ConfirmAct from './ConfirmAct'
 
 
