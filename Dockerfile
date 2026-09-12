@@ -1,4 +1,4 @@
-# Етап 1: Збірка проєкту
+# Етап 1: Збірка статичних файлів
 FROM node:24-alpine AS build
 WORKDIR /app
 COPY package*.json ./
@@ -6,10 +6,12 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Етап 2: Роздача через Nginx
+# Етап 2: Запуск стабільного вебсервера Nginx
 FROM nginx:alpine
+# Копіюємо згенеровані файли з папки dist (куди Webpack склав білд)
 COPY --from=build /app/dist /usr/share/nginx/html
-# Додаємо базовий конфіг для підтримки React Router (try_files)
+
+# Записуємо конфіг для Nginx на порт 8000 із підтримкою React Router
 RUN echo 'server { \
     listen 8000; \
     location / { \
