@@ -3,18 +3,41 @@ import Excel from './components/Excel';
 import Display from './components/Display';
 import PanelAction from './components/PanelAction';
 import InfoHelp from './components/InfoHelp';
-import ShowOrInCard from './components/ShowOrInCard';
+import ShowTextCard from './components/ShowTextCard';
+import Resource from './resource/Resource';
+import Db from './resource/Db';
+import StateVar from './resource/StateVariables';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    StateVar.sessionId = props.sessionId;
     this.state = {
-      actionPanel: false // Спочатку нічого не вибрано
+      actionPanel: false,
+      // currentId:  Number(props.sessionId) || Date.now();
     };
   }
 
+  componentDidMount() {
+    this.initData(this.state.currentId);
+  }
+
+  // ◄ ВАЖЛИВО: Спрацьовує щоразу, коли користувач переходить на інший ID в URL
+  componentDidUpdate(prevProps) {
+    if (prevProps.sessionId !== this.props.sessionId) {
+      const newId = Number(this.props.sessionId);
+      if (newId && !isNaN(newId)) {
+        this.setState({ currentId: newId });
+        this.initData(newId);
+      }
+    }
+  }
+
+  initData(id) {
+    Resource.configs.idCardServer = id;
+  }
+
   setOnActChange = (value, id) => {
-    console.log('VALUE',value)
     this.setState({ actionPanel: false });
   };
 
@@ -40,10 +63,10 @@ export default class App extends React.Component {
           <div className="col-12 col-lg-4">
             <div className="d-flex flex-column gap-3 p-3 bg-secondary bg-opacity-10 rounded border border-secondary h-100">
               <div className="w-100">
-                <PanelAction  onActChange={this.setOnActChange}/>
+                <PanelAction onActChange={this.setOnActChange} />
               </div>
               <InfoHelp />
-              <ShowOrInCard />
+              <ShowTextCard />
             </div>
           </div>
         </div>
@@ -57,7 +80,7 @@ export default class App extends React.Component {
               </div>
 
               <div className="overflow-x-auto">
-                <Excel  />
+                <Excel sessionId={StateVar.sessionId} />
               </div>
             </div>
           </div>

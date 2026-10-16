@@ -34,9 +34,11 @@ module.exports = {
         proxy: [
             {
                 context: ['/api'],
-                target: 'http://mywebserver:3012', // Назва докер-сервісу вашого Node.js бекенду
+                target: 'https://localhost:3012', // mywebserver Назва докер-сервісу вашого Node.js бекенду
                 pathRewrite: { '^/api': '' },
                 changeOrigin: true,
+                //видалити для прод
+                secure: false, // Ігнорувати помилки самопідписаних SSL-сертифікатів
             },
         ],
         historyApiFallback: true,

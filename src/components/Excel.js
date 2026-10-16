@@ -1,10 +1,9 @@
 import React from 'react';
 import Db from '../resource/Db';
 import Resource from '../resource/Resource';
-import StatVar from '../resource/StateVariables';
+import StateVar from '../resource/StateVariables';
 import { Button, Modal } from 'react-bootstrap';
-//import RoutersCast from '../routes/RoutersCast';
-
+import RoutersCast from '../routes/RoutersCast';
 
 export default class Excel extends React.Component {
   constructor(props) {
@@ -13,32 +12,29 @@ export default class Excel extends React.Component {
       data: Db.getPpz(0),
       showModal: false,
       currentCardId: 0,
-
     };
-    this.card = Db.getPpzAll();
     this.symbolState = Resource.symbolState;
     this.symbolRevers = Resource.symbolStateList;
-    this.ppzSelectId = Db.stateVariables.ppzSelectId;
+    this.ppzSelectId = StateVar.selectCardId;
     this.indexCount = 0;
   }
 
-
   stateEvents = () => {
-    if (StatVar.newProject === 1) {
-      StatVar.newProject = 0;
-      StatVar.selectCardId = 0;
+    if (StateVar.newProject === 1) {
+      StateVar.newProject = 0;
+      StateVar.selectCardId = 0;
       Db.deleteAllPpz();
-      Db.setPpz(Resource.punchCard());
+      Db.ppz = [Resource.punchCard()];
       Db.deleteAllOpMem();
     }
 
-    if (StatVar.aktCleanCard === 1) {
-      StatVar.aktCleanCard = 0;
-      Db.setIdPpz(StatVar.selectCardId, Resource.punchCard());
+    if (StateVar.aktCleanCard === 1) {
+      StateVar.aktCleanCard = 0;
+      Db.setIdPpz(StateVar.selectCardId, Resource.punchCard());
     }
 
-    if (Db.stateVariables.updateManualCard === 1) {
-      Db.stateVariables.updateManualCard = 0;
+    if (StateVar.updateManualCard === 1) {
+      StateVar.updateManualCard = 0;
     }
   }
 
@@ -48,8 +44,7 @@ export default class Excel extends React.Component {
       <table className="table table-striped border-0 text-white text-center fit-table h6  p-0 m-0 " >
         <tbody>
           {
-
-            this.card[StatVar.selectCardId].map((row, idtr) => {
+            Db.getPpzAll()[StateVar.selectCardId].map((row, idtr) => {
               return (
                 <tr key={`row-${idtr}`} >{
                   row.map((cell, idtb) => {
@@ -76,15 +71,12 @@ export default class Excel extends React.Component {
     const irow = parseInt(e.currentTarget.dataset.row, 10);
     const icol = parseInt(e.currentTarget.dataset.col, 10);
     this.positioCell = { irow, icol }
-    let selecId = Db.stateVariables.ppzSelectId;
-
+    let selecId = StateVar.selectCardId;
     if (Db.getPpz(selecId)[irow][icol] == '0') {
       this.indexCount = 1;
     } else if (Db.getPpz(selecId)[irow][icol] == '1') {
       this.indexCount = 2;
     } else this.indexCount = 0;
-
-
     if (this.indexCount == 0) {
       this.indexCount++;
       Db.getPpz(selecId)[irow][icol] = '0';
@@ -101,7 +93,7 @@ export default class Excel extends React.Component {
       return 0;
     }
 
-   // RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
+    RoutersCast.postData(Db.getPpzAll(), StateVar.sessionId);
 
     this.setState({
       showModal: this.state.showModal,
@@ -128,7 +120,7 @@ export default class Excel extends React.Component {
   }
 
   _onClickSelectEl = (event) => {
-    let selecId = Db.stateVariables.ppzSelectId;
+    let selecId = StateVar.selectCardId;
     const { irow, icol } = this.positioCell;
     if (event) {
       let value = event.target.value;
@@ -137,7 +129,7 @@ export default class Excel extends React.Component {
       Db.getPpz(selecId)[irow][icol] = '\u2205';
     }
 
-    //RoutersCast.postData(Db.getPpzAll(), Resource.configs.idCardServer);
+    RoutersCast.postData(Db.getPpzAll(), StateVar.sessionId);
 
     this.setState({
       data: Db.getPpz(selecId),

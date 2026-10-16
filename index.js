@@ -5,67 +5,36 @@ import {
     RouterProvider,
     Navigate,
 } from 'react-router-dom';
-import App from './src/App';
+import AppWrapper from './src/AppWrapper';
 import Resource from "./src/resource/Resource";
+import StateVar from "./src/resource/StateVariables";
 import Db from "./src/resource/Db";
+import RoutersCast from "./src/routes/RoutersCast";
 import './src/scss/styles.scss';
-
-// 1. Очищуємо отримання ID. 
-// Якщо шлях наприклад "/1789237364294", то split('/') даст ['', '1789237364294']
-let appId = Number(window.location.pathname.replace('/', ''));
-
-// 2. Якщо ID немає або це не число (NaN) — генеруємо нове
-if (!appId || isNaN(appId)) {
-    appId = Date.now();
-}
-
-Resource.configs.idCardServer = appId;
 
 const router = createBrowserRouter([
     {
         path: "/",
-        // Редиректимо просто на чисте число: /1789237364294
-        element: <Navigate to={`/${appId}`} replace />,
+        element: <Navigate to={`/${Date.now()}`} replace />,
     },
     {
-        // React Router підставить число замість :id
         path: "/:id",
-        element: <App />,
+        element: <AppWrapper />,
+        loader: async ({ params }) => {
+            const res = await RoutersCast.getTestId(Number(params.id));
+            if (res.statuCode != 204)
+                Db.ppz = res.data.punchCard;
+            else Db.ppz = [Resource.punchCard()];
+                StateVar.sessionId = params.id;
+        },
     },
 ]);
 
 const motherContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(motherContainer);
 
-Db.setPpz(Resource.punchCard());
-
 root.render(
     <React.StrictMode>
         <RouterProvider router={router} />
     </React.StrictMode>
 );
-
-
-/*RoutersCast.getTestId().then((res) => {
-    //  let d =  JSON.parse(data.data); 
-    if (res.statuCode === 200) {
-        Db.setPpz(res.data.punchCard);
-        RoutersCast.postData(Db.getPpzAll(), appId);
-        root.render(
-            <React.StrictMode>
-                <RouterProvider router={router} />
-            </React.StrictMode>
-        );
-    } else {
-        Db.setPpz(Resource.punchCard());
-        RoutersCast.postData(Db.getPpzAll(), appId);
-        root.render(
-            <React.StrictMode>
-                <RouterProvider router={router} />
-            </React.StrictMode>
-        );
-    }
-}).catch((e) => {
-    console.error(e);
-})*/
-

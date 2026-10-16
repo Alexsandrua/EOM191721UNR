@@ -13,46 +13,53 @@ export default class PanelAction extends React.Component {
     this.optionElArr = [];
     this.indexCard = Db.getPpzAll().length;
     this.insertElemet();
-    this.activeCards = Db.getPpzAll().length > 2 ? true : false;
-    this.state = { activeCards: false };
+    this.activeCards =
+      this.state = {
+        activeCards: Db.getPpzAll().length > 2 ? true : false,
+        selectCardId: 0,
+      };
   }
 
-  actionToDo = (e) => {
-    const name = e.currentTarget.name;
-    if (name == 'changeIdCard') {
-      StatVar.selectCardId = parseInt(e.target.value);
-    }
-
+  actionToDo = (name) => {
     if (name == 'cleancard') {
       StatVar.aktCleanCard = 1;
     }
 
     if (name == 'newproject') {
+
       StatVar.newProject = 1;
+      StatVar.selectCardId = 0;
+      this.activeCards = false;
     }
-
     this.props.onActChange(name, StatVar.selectCardId);
-
+    this.setState({
+      selectCardId: StatVar.selectCardId,
+      activeCards: this.activeCards,
+    });
   }
 
 
   addPerfoocard = (r) => {
     Db.addPpz(Resource.punchCard());
     this.indexCard = Db.getPpzAll().length;
+    StatVar.selectCardId = this.indexCard - 1;
     this.insertElemet();
     this.activeCards = true;
-    this.setState({ activeCards: true });
+    this.props.onActChange('addPerfoocard', StatVar.selectCardId);
+    this.setState({
+      selectCardId: StatVar.selectCardId,
+      activeCards: true,
+    });
   }
 
   buttonAction = () => {
     return (
 
       <div className="d-flex flex-wrap gap-2 w-100 justify-content-center justify-content-sm-start" role="group" aria-label="Basic example">
-
         <ConfirmAct
           messageConfirm='Данні з карт завдання та помʼяті буде стерто'
           titleConfirm='Нова задача'
-          onClickConfirm={this.actionToDo}
+          onClickConfirm={() => { this.actionToDo('newproject') }}
           name="newproject"
         />
 
@@ -61,9 +68,9 @@ export default class PanelAction extends React.Component {
         </Button>
 
         <ConfirmAct
-          messageConfirm='Данні з карт завдання та помʼяті буде стерто'
+          messageConfirm='Данні з поточної перфокарти буде стерто'
           titleConfirm='Очистити'
-          onClickConfirm={this.actionToDo}
+          onClickConfirm={() =>  this.actionToDo('cleancard') }
           name="cleancard"
         />
 
@@ -80,14 +87,21 @@ export default class PanelAction extends React.Component {
   insertElemet = () => {
     this.optionElArr = [];
     for (let key = 0; key < this.indexCard; key++) {
-      this.optionElArr.push(<option key={key} value={key} >{'Carta :' + key}</option>);
+      this.optionElArr.push(
+        <option key={key} value={key} >
+          {'Carta :' + key}
+        </option>
+      );
     };
   }
 
   selectCards() {
     return (
-      <form value="" name="changeIdCard" onChange={this.actionToDo}>
-        <select>
+      <form   >
+        <select value={this.state.selectCardId} name="changeIdCard" onChange={(e) => {
+          StatVar.selectCardId = parseInt(e.target.value);
+          this.actionToDo('changeIdCard');
+        }} >
           {[...this.optionElArr]}
         </select>
       </form>
@@ -99,7 +113,7 @@ export default class PanelAction extends React.Component {
       <div>
         <p>Панель команд</p>
         {this.buttonAction()}
-        {this.activeCards ? this.selectCards() : null}
+        {this.state.activeCards ? this.selectCards() : null}
       </div>
     )
   }

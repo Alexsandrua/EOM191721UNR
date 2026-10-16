@@ -17,6 +17,7 @@ export default class ConfirmAct extends React.Component {
 
   // Користувач натиснув "Скасувати" або хрестик
   handleClose = () => {
+    this.showConfirm = 1;
     this.setState({ showConfirm: false, onConfirmAction: null });
   };
 
@@ -35,7 +36,7 @@ export default class ConfirmAct extends React.Component {
         showConfirm: true,
       });
     }
-    if (e.target.name = "cleancard") StatVar.aktCleanCard = 1;
+    if (e.target.name == "cleancard") StatVar.aktCleanCard = 1;
 
     if (e.currentTarget.dataset.name == 'confirm') {
       this.showConfirm = 1;

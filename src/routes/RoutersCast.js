@@ -1,4 +1,5 @@
 import Resource from '../resource/Resource';
+import StateVar from '../resource/StateVariables';
 import axios from 'axios';
 
 
@@ -11,9 +12,9 @@ class RoutersCast {
 
   }
 
-  getTestId = async () => {
+  getTestId = async (id) => {
     try {
-      let res = await axios.get(`/api/test?id=${Resource.configs.idCardServer}`);//`http://${this.hostname}:3012/` + 
+      let res = await axios.get(`/api/sesion?id=${id}`);//`http://${this.hostname}:3012/` + 
       return { statuCode: res.status, data: res.data };
     } catch (err) {
       console.error(err);
@@ -21,21 +22,7 @@ class RoutersCast {
 
   }
 
-  getData = () => {
-    axios.get('/api/data')
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-      .finally(() => {
-        console.log('Finally');
-      })
-  }
-
   postData = (data, sesionId) => {
-    if(data)  return
     axios.post('/api/setcard', {
       sesionId,
       punchCard: data,
