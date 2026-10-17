@@ -22,12 +22,9 @@
 /* Стилізація самих комірок */
 .punch-card-table td {
     background-color: #736542 !important;
-    /* Трохи світліший фон самої комірки */
     border: 1px solid #5b5138 !important;
-    /* Тонка зовнішня межа */
     text-align: center;
     position: relative;
-    /* Необхідно для позиціонування прямокутника */
     padding: 6px 4px !important;
     font-size: 12px;
     vertical-align: middle;

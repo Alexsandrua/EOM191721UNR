@@ -48,7 +48,6 @@ export default class Excel extends React.Component {
               return (
                 <tr key={`row-${idtr}`} >{
                   row.map((cell, idtb) => {
-                    console.log(cell)
                     const isPunched = cell !== 'empty' || cell !== 'empty';
                     const cellClass =`p-1 fit-cell ${isPunched ? 'punched' : ''}`;
                     return <td
