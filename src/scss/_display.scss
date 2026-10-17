@@ -1,0 +1,25 @@
+
+/* Ефект мерехтіння ЕЛТ-екрана */
+@keyframes bootstrap-crt-flicker {
+  0% { opacity: 0.98; filter: brightness(0.98); }
+  20% { opacity: 1; filter: brightness(1.03); }
+  60% { opacity: 0.99; filter: brightness(0.97); }
+}
+
+/* Наш кастомний ретро-клас */
+.crt-monitor {
+  background-color: #122015 !important; /* Глибокий темно-зелений */
+  color: #33ff33 !important;            /* Яскравий неоновий текст */
+  border-color: #22aa22 !important;     /* Зелена рамка */
+  font-family: monospace !important;     /* Моноширинний шрифт */
+  
+  /* Ефект свічення тексту */
+  text-shadow: 0 0 5px rgba(51, 255, 51, 0.55); 
+  
+  /* Запуск швидкого мерехтіння */
+  animation: bootstrap-crt-flicker 0.15s infinite;
+  
+  /* Горизонтальні лінії сканування кінескопа */
+  background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+}

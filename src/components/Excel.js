@@ -41,15 +41,18 @@ export default class Excel extends React.Component {
   _renderTable = () => {
     this.stateEvents();
     return (
-      <table className="table table-striped border-0 text-white text-center fit-table h6  p-0 m-0 " >
+      <table className="table table-bordered text-center fit-table h6 p-0 m-0 punch-card-table" >
         <tbody>
           {
             Db.getPpzAll()[StateVar.selectCardId].map((row, idtr) => {
               return (
                 <tr key={`row-${idtr}`} >{
                   row.map((cell, idtb) => {
+                    console.log(cell)
+                    const isPunched = cell !== 'empty' || cell !== 'empty';
+                    const cellClass =`p-1 fit-cell ${isPunched ? 'punched' : ''}`;
                     return <td
-                      className='p-1 fit-cell'
+                      className={cellClass}
                       key={idtr + ',' + idtb}
                       data-row={idtr}
                       data-col={idtb}

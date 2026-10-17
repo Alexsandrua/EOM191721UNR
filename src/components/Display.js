@@ -69,7 +69,7 @@ export default class Display extends React.Component {
       Монітор:
     </label>
     <textarea
-      className="form-control p-3 bg-success-subtle text-success-emphasis border-success fw-mono"
+      className="form-control p-3 bg-success-subtle text-success-emphasis border-success fw-mono crt-monitor"
       name="displayOutput"
       id="displayOutputId"
       rows={5}

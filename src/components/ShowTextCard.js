@@ -7,6 +7,9 @@ export default class ShowTextCard extends React.Component {
   constructor(props) {
     super(props);
     this.buff = '';
+    this.state = {
+      textPerfocard: JSON.stringify({...Db.getPpzAll()}),
+    }
   }
 
   saveChange = (e) => {
@@ -36,8 +39,11 @@ export default class ShowTextCard extends React.Component {
   }
 
   buffChange = (e) => {
-    this.buff = '';
-    this.buff = e.target.value.split(',');
+    const inputValue = e.target.value;
+
+    this.setState({ textPerfocard : inputValue})
+
+    this.buff = inputValue.split(',');
   }
 
   card = () => {
@@ -52,7 +58,7 @@ export default class ShowTextCard extends React.Component {
               <textarea
                 className="form-control bg-dark text-white border-secondary"
                 rows="5"
-                value={JSON.stringify({...Db.getPpzAll()})}
+                value={this.state.textPerfocard}
                 onChange={this.buffChange}
                 placeholder="Введіть дані..."
               />

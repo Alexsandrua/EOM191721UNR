@@ -1,0 +1,65 @@
+/* Ретро-перфокарта стиль для таблиці */
+.punch-card-table {
+    background-color: #564c34 !important;
+    /* Автентичний кремово-паперовий колір перфокарти */
+    color: #5d4a36 !important;
+    /* Темно-коричневі цифри (імітація старого друку) */
+    font-family: monospace !important;
+    /* Моноширинний шрифт */
+    border-collapse: separate !important;
+    border-spacing: 2px !important;
+    /* Робимо легкі проміжки між дірочками */
+}
+
+/* Колір заголовків таблиці */
+.punch-card-table th {
+    background-color: #736542 !important;
+    border: 1px solid #5b5138 !important;
+    text-align: center;
+    font-size: 11px;
+}
+
+/* Стилізація самих комірок */
+.punch-card-table td {
+    background-color: #736542 !important;
+    /* Трохи світліший фон самої комірки */
+    border: 1px solid #5b5138 !important;
+    /* Тонка зовнішня межа */
+    text-align: center;
+    position: relative;
+    /* Необхідно для позиціонування прямокутника */
+    padding: 6px 4px !important;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+/* Створення малопомітного внутрішнього прямокутника всередині кожної комірки */
+.punch-card-table td::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 1px dashed rgba(44, 35, 25, 0.18);
+    /* Ледве помітна пунктирна внутрішня рамка */
+    pointer-events: none;
+    /* Щоб рамка не заважала клікам */
+    border-radius: 2px;
+}
+
+/* Ефект пробитої дірки (якщо комірка активована/пробита) */
+.punch-card-table td.punched {
+    background-color: #17150e6c !important;
+    /* Чорний колір (імітація наскрізного отвору) */    
+  
+    color: #000000 !important;
+    /* Ховаємо текст всередині пробитої комірки */
+    box-shadow: inset 0 0 2px #000000;
+    /* Ефект глибини отвору */
+}
+
+.punch-card-table td.punched::after {
+    border: none;
+    /* Прибираємо внутрішню рамку, якщо отвір пробито */
+}
