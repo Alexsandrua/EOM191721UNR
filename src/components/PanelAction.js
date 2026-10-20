@@ -45,6 +45,7 @@ export default class PanelAction extends React.Component {
     StatVar.selectCardId = this.indexCard - 1;
     this.insertElemet();
     this.activeCards = true;
+    StatVar.flagRefreshManualCard = 1;
     this.props.onActChange('addPerfoocard', StatVar.selectCardId);
     this.setState({
       selectCardId: StatVar.selectCardId,
@@ -55,7 +56,7 @@ export default class PanelAction extends React.Component {
   buttonAction = () => {
     return (
 
-      <div className="d-flex flex-wrap gap-2 w-100 justify-content-center justify-content-sm-start" role="group" aria-label="Basic example">
+      <div className="d-flex flex-wrap gap-2 w-100 justify-content-center justify-content-sm-start " role="group" aria-label="Basic example">
         <ConfirmAct
           messageConfirm='Данні з карт завдання та помʼяті буде стерто'
           titleConfirm='Нова задача'
@@ -63,7 +64,7 @@ export default class PanelAction extends React.Component {
           name="newproject"
         />
 
-        <Button type="button" className="btn btn-success flex-grow-1 flex-sm-grow-0" onClick={this.addPerfoocard}>
+        <Button type="button" className="btn color-grin flex-grow-1 flex-sm-grow-0 btn-embossed" onClick={this.addPerfoocard}>
           Додати карту
         </Button>
 
@@ -75,7 +76,7 @@ export default class PanelAction extends React.Component {
         />
 
 
-        <Button type="button" className="btn btn-danger flex-grow-1 flex-sm-grow-0" onClick={() => new LogikHanding()}>
+        <Button type="button" className="btn color-red flex-grow-1 flex-sm-grow-0 btn-embossed" onClick={() => new LogikHanding()}>
           Виконати
         </Button>
 

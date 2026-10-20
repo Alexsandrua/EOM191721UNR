@@ -3,6 +3,7 @@ class StateVariables {
         this.aktCleanCard = 0;
         this.newProject = 0;
         this.updateManualCard = 0;
+        this.flagRefreshManualCard = 1;
         this.selectCardId = 0;
         this._sessionId = 0;
     }
