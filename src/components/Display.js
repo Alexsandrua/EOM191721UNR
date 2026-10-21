@@ -62,10 +62,10 @@ export default class Display extends React.Component {
 
   render() {
     return (
-      <div className="p-3 bg-dark text-white rounded border border-secondary">
+      <div className="p-3 bg-dark text-white rounded border border-secondary ">
   {/* Блок монітора */}
-  <div className="mb-3">
-    <label htmlFor="displayOutputId" className="form-label fw-bold text-success-emphasis">
+  <div className="mb-3 ">
+    <label htmlFor="displayOutputId" className="form-label fw-bold text-success-emphasis metal-badge">
       Монітор:
     </label>
     <textarea
@@ -82,13 +82,13 @@ export default class Display extends React.Component {
   {/* Блок перемикачів (Radio) */}
  {/* gap-5 робить величезну відстань між елементами форми */}
 <form className="d-flex gap-5 align-items-center mt-4 p-2 w-100">
-  <span className="fw-bold text-info fs-5">Формат:</span>
+  <span className="fw-bold text-info fs-5 metal-badge">Формат:</span>
 
   {/* Radio 1: Binary */}
   <div className="form-check m-2 fs-5 fw-semibold text-warning">
     <input
       type="radio"
-      className="form-check-input"
+      className="form-check-input retro-radio-glow"
       name="typeShou"
       id="radioBinary"
       onChange={this.handleChange}
@@ -96,7 +96,7 @@ export default class Display extends React.Component {
       checked={this.state.typeShou === 'binare'}
       style={{ transform: 'scale(1.2)', marginRight: '10px' }} // Збільшує сам кружечок
     />
-    <label className="form-check-label" htmlFor="radioBinary">
+    <label className="form-check-label metal-badge" htmlFor="radioBinary">
       Binary
     </label>
   </div>
@@ -105,7 +105,7 @@ export default class Display extends React.Component {
   <div className="form-check m-2 fs-5 fw-semibold text-warning">
     <input
       type="radio"
-      className="form-check-input"
+      className="form-check-input retro-radio-glow"
       name="typeShou"
       id="radioDecimal"
       onChange={this.handleChange}
@@ -113,7 +113,7 @@ export default class Display extends React.Component {
       checked={this.state.typeShou === 'decimal'}
       style={{ transform: 'scale(1.2)', marginRight: '10px' }}
     />
-    <label className="form-check-label" htmlFor="radioDecimal">
+    <label className="form-check-label metal-badge" htmlFor="radioDecimal">
       Decimal
     </label>
   </div>

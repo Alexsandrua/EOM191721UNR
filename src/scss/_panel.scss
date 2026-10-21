@@ -12,3 +12,13 @@
     /* 3. Дуже тонка зовнішня біла лінія знизу (надає об'єму зовнішній стінці) */
     0 1px 0 rgba(40, 40, 40, 0.9);
 }
+
+.panel-neumorphic-inset {
+  background: linear-gradient(135deg, #0c0c0c 10%, #070e0a 90%);
+  border-radius: 16px;
+  border: none;
+  
+  /* Контрастні внутрішні тіні: темна та абсолютно біла */
+  box-shadow: inset 6px 6px 12px #0f0909, 
+              inset -6px -6px 12px #000000;
+}

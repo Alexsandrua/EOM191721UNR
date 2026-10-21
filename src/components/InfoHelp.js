@@ -23,7 +23,7 @@ export default class InfoHelp extends React.Component {
         );
     }
     render() {
-        return <div className='container-fluid text-center p-4 text-white'>
+        return <div className='container-fluid text-center p-4 color-green'>
            <Modals mTitle='Справка' mData={this.mdata} titleBtn='Допомога'/>
         </div>;
     }

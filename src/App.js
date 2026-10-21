@@ -43,7 +43,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className=" panel-concave container-fluid bg-dark text-white min-vh-100 p-4" data-bs-theme="dark">
+      <div className=" panel-concave container-fluid bg-dark   min-vh-100 p-4" data-bs-theme="dark">
 
         <div className=" panel-concave row mb-4">
           <div className=" panel-concave col-12 text-center text-md-start border-bottom border-secondary pb-1">
@@ -55,13 +55,13 @@ export default class App extends React.Component {
         </div>
         <div className="row g-4 mb-4">
           <div className="col-12 col-lg-8">
-            <div className="panel-concave p-3 bg-secondary bg-opacity-10 rounded border border-secondary h-100">
+            <div className="panel-concave p-3 bg-black bg-opacity-10 rounded border border-secondary h-100">
               <Display />
             </div>
           </div>
 
-          <div className="col-12 col-lg-4">
-            <div className="panel-concave d-flex flex-column gap-3 p-3 bg-secondary bg-opacity-10 rounded border border-secondary h-100">
+          <div className="col-12 col-lg-4 ">
+            <div className="panel-concave d-flex flex-column gap-3 p-3 bg-dark bg-opacity-10 rounded border border-secondary h-100">
               <div className="w-100">
                 <PanelAction onActChange={this.setOnActChange} />
               </div>
@@ -73,10 +73,10 @@ export default class App extends React.Component {
 
         <div className="row">
           <div className="col-12">
-            <div className=" panel-concave p-3 bg-secondary bg-opacity-10 rounded border border-secondary">
+            <div className=" panel-concave p-3 bg-black bg-opacity-10 rounded border border-secondary">
 
               <div className="d-flex align-items-center justify-content-start gap-10 mb-0 border-bottom border-secondary pb-0">
-                <span className="fw-bold text-white">-Перфокарта-</span>
+                <span className="fw-bold metal-badge">-Перфокарта-</span>
               </div>
 
               <div className="overflow-x-auto">

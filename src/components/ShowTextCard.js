@@ -3,6 +3,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import Db from '../resource/Db';
 import StatVar from '../resource/StateVariables';
+import RoutersCast from '../routes/RoutersCast';
 
 export default class ShowTextCard extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ export default class ShowTextCard extends React.Component {
     for (let i in cardObj)
       cardArr.push(cardObj[i]);
     Db.ppz = cardArr;
+    RoutersCast.postData(Db.getPpzAll(), StatVar.sessionId);
     StatVar.updateManualCard = 1;
     this.toggleModal = true;
     this.props.onActChange('manualChange', StatVar.selectCardId);
@@ -91,7 +93,7 @@ export default class ShowTextCard extends React.Component {
   render() {
     return <div className='container-fluid text-center p-4 text-white'>
       <div>
-        <button type="button" className="btn  btn-embossed" onClick={this.showModal}>Редагувати картку вручну</button>
+        <button type="button" className="btn  btn-embossed color-green" onClick={this.showModal}>Редагувати картку вручну</button>
         <Modal
           show={this.state.showModal}
           onHide={this._onClikClose}

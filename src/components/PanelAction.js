@@ -112,7 +112,7 @@ export default class PanelAction extends React.Component {
   render() {
     return (
       <div>
-        <p>Панель команд</p>
+        <span className='metal-badge m-3' >Панель команд</span>
         {this.buttonAction()}
         {this.state.activeCards ? this.selectCards() : null}
       </div>
