@@ -11,8 +11,8 @@ export default class PanelAction extends React.Component {
   constructor(props) {
     super(props);
     this.optionElArr = [];
+    console.log(Db.getPpzAll());
     this.indexCard = Db.getPpzAll().length;
-    console.log(' PANEL ACTION ', Db.getPpzAll().length, Db.getPpzAll().length > 1 ? true : false)
     this.insertElemet();
     this.activeCards = '';
       this.state = {
