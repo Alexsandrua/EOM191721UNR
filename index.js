@@ -22,10 +22,12 @@ const router = createBrowserRouter([
         element: <AppWrapper />,
         loader: async ({ params }) => {
             const res = await RoutersCast.getTestId(Number(params.id));
-            if (res.statuCode != 204)
-                Db.ppz = res.data.punchCard;
-            else Db.ppz = [Resource.punchCard()];
-                StateVar.sessionId = params.id;
+            if (res) {
+                if (res.statuCode != 204)
+                    Db.ppz = res.data.punchCard;
+                else Db.ppz = [Resource.punchCard()];
+            } else Db.ppz = [Resource.punchCard()];
+            StateVar.sessionId = params.id;
         },
     },
 ]);
