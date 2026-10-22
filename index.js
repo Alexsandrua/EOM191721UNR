@@ -26,10 +26,7 @@ const router = createBrowserRouter([
                 if (res.statuCode != 204)
                     Db.ppz = res.data.punchCard;
                 else Db.ppz = [Resource.punchCard()];
-            } else {
-                Db.ppz = [Resource.punchCard()];
-                console.log(Db.getPpzAll());
-            }
+            } else Db.ppz = [Resource.punchCard()];
             StateVar.sessionId = params.id;
         },
     },
