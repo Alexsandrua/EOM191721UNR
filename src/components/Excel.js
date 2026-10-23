@@ -8,6 +8,7 @@ import RoutersCast from '../routes/RoutersCast';
 export default class Excel extends React.Component {
   constructor(props) {
     super(props);
+    console.log('EXELE', Db.getPpzAll());
     this.state = {
       data: Db.getPpz(0),
       showModal: false,
