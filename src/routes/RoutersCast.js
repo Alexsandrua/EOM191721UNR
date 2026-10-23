@@ -6,9 +6,7 @@ import axios from 'axios';
 class RoutersCast {
   constructor() {
     this.hostname = window.location.hostname;
-    this.apiUrl = this.hostname === 'localhost' 
-      ? '/api' 
-      : 'https://eom191721unr.org';
+    this.apiUrl = '/api';
   }
 
   getTestId = async (id) => {
