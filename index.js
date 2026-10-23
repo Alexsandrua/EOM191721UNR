@@ -22,6 +22,7 @@ const router = createBrowserRouter([
         element: <AppWrapper />,
         loader: async ({ params }) => {
             const res = await RoutersCast.getTestId(Number(params.id));
+            console.log('INDEX RES ',res)
             if (res) {
                 if (res.statuCode != 204)
                     Db.ppz = res.data.punchCard;
