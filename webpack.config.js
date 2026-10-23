@@ -5,6 +5,7 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--mode=production');
+const isLocalhost = process.env.NODE_ENV !== 'production' && !process.env.DOCKER_ENV; 
 
 module.exports = {
     mode: isProduction ? 'production' : 'development',
@@ -34,7 +35,7 @@ module.exports = {
         proxy: [
             {
                 context: ['/api'],
-                target: 'https://mywebserver:3012', // mywebserver Назва докер-сервісу вашого Node.js бекенду
+                target:  isLocalhost ? 'https://127.0.0.1:3012' : 'https://mywebserver:3012',//'https://mywebserver:3012', 
                 pathRewrite: { '^/api': '' },
                 changeOrigin: true,
                 //видалити для прод
