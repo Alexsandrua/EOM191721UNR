@@ -24,7 +24,7 @@ const router = createBrowserRouter([
             const res = await RoutersCast.getTestId(Number(params.id));
             console.log('INDEX RES ',res)
             if (res) {
-                if (res.statuCode != 204)
+                if (res.statuCode == 200)
                     Db.ppz = res.data.punchCard;
                 else Db.ppz = [Resource.punchCard()];
             } else Db.ppz = [Resource.punchCard()];
