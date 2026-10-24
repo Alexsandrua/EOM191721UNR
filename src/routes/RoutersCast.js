@@ -13,7 +13,7 @@ class RoutersCast {
 
   getTestId = async () => {
     try {
-      let res = await axios.get(`/api/test?id=${Resource.configs.idCardServer}`);//`http://${this.hostname}:3012/` + 
+      let res = await axios.get(`/api/test?id=${Resource.configs.idCardServer}`);
       return { statuCode: res.status, data: res.data };
     } catch (err) {
       console.error(err);
