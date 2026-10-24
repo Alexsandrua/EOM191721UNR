@@ -1,15 +1,19 @@
 'use strict'
 
 const path = require("path");
-const autoprefixer = require('autoprefixer')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--mode=production');
+const isLocalhost = process.env.NODE_ENV !== 'production' && !process.env.DOCKER_ENV; 
 
 module.exports = {
+    mode: isProduction ? 'production' : 'development',
     entry: "./index.js",
     output: {
-        publicPath: 'auto', //'/',
+        publicPath: 'auto',
         path: path.resolve(__dirname, "dist"),
-        filename: "main.js",
+        filename: isProduction ? "main.[contenthash].js" : "main.js",
     },
     // ◄ ВИПРАВЛЕНО: Об'єднано два блоки resolve в один спільний об'єкт
     resolve: {
@@ -19,14 +23,10 @@ module.exports = {
             react: path.join(__dirname, 'node_modules', 'react'),
         },
     },
-    devServer: {
+    devServer: isProduction ? undefined : {
         port: 8000, // Краще вказувати числом, а не рядком
         host: '0.0.0.0',
-        allowedHosts: [
-            'eom191721unr.org',
-            'www.eom191721unr.org', // Замість "://" додано правильний піддомен www
-            'all'
-        ],
+        allowedHosts: 'all',
         client: {
             webSocketURL: 'auto://0.0.0.0:0/ws',
             overlay: false,
@@ -35,9 +35,11 @@ module.exports = {
         proxy: [
             {
                 context: ['/api'],
-                target: 'http://myserver:3012', // Назва докер-сервісу вашого Node.js бекенду
+                target:  isLocalhost ? 'https://127.0.0.1:3012' : 'https://mywebserver:3012',//'https://mywebserver:3012', 
                 pathRewrite: { '^/api': '' },
                 changeOrigin: true,
+                //видалити для прод
+                secure: false, // Ігнорувати помилки самопідписаних SSL-сертифікатів
             },
         ],
         historyApiFallback: true,

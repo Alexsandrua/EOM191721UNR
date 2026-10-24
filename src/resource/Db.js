@@ -1,7 +1,7 @@
 class Db {
   constructor() {
     this.idSesion = window.location.pathname.split(':')[1];
-    this.ppz = [];
+    this._ppz = [];
     this.op = {};
     this.ppzSelectId = 0;
   }
@@ -13,35 +13,32 @@ class Db {
     updateManualCard: 0,
   }
 
-  setPpz(data) {
-    if (data[0][0] == 'empty') {
-      this.ppz.push(data);
-    } else { 
-      this.ppz = data;
-    }
+  set ppz(data) {
+    this._ppz = data;
   }
 
-  setIdPpz (id, data) {
-    this.ppz[id] = data;
+  setIdPpz(id, data) {
+    
+    this._ppz[id] = data;
   }
 
   addPpz(data) {
-    this.ppz.push(data);
+    this._ppz.push(data);
   }
 
   getPpz(id) {
-    return this.ppz[id];
+    return this._ppz[id];
   }
 
   getPpzAll() {
-    return this.ppz;
+    return this._ppz;
   }
 
   deleteAllPpz() {
-    this.ppz = [];
+    this._ppz = [];
   }
 
-  
+
 
   setOpMem(id, data) {
     this.op[id] = data;

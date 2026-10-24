@@ -1,0 +1,52 @@
+/* Базовий стан: Чорна увігнута внутрішня сторона */
+input[type="radio"].retro-radio-glow {
+  appearance: none; /* Вимикаємо дефолтний дизайн браузера */
+  -webkit-appearance: none;
+  width: 1em;
+  height: 1em;
+  background-color: #111111; /* Глибокий чорний колір всередині */
+  border: 2px solid #555555; /* Металевий сірий обідок навколо */
+  border-radius: 50%;
+  position: relative;
+  
+  /* Внутрішня тінь створює ефект вигнутості вглиб */
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.8),
+              0 1px 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Стан, коли радіо-кнопка НАТИСНУТА (Checked) */
+input[type="radio"].retro-radio-glow:checked {
+  background-color: #b30000; /* Внутрішня частина стає яскраво-червоною */
+  border-color: #b40000;    /* Обідок теж трохи підсвічується червоним */
+  
+  /* Червоне неонове світіння назовні та глибока внутрішня точка */
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.6), 
+              0 0 10px rgba(255, 0, 0, 0.8), 
+              0 0 4px rgba(255, 0, 0, 0.5);
+}
+
+/* Ефектна маленька крапка-відблиск по центру, яка імітує скляну лінзу діода */
+input[type="radio"].retro-radio-glow::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  width: 30%;
+  height: 30%;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Прибираємо синій дефолтний аутлайн Bootstrap при фокусі */
+input[type="radio"].retro-radio-glow:focus {
+  outline: none;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.8); /* Залишаємо чорну нішу */
+}
+
+/* Окреме правило для фокусу вже увімкненої кнопки, щоб світіння не зникало */
+input[type="radio"].retro-radio-glow:checked:focus {
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.6), 
+              0 0 10px rgba(255, 0, 0, 0.8);
+}

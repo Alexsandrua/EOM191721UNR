@@ -1,7 +1,11 @@
-// Import all of Bootstrap’s CSS
-//@import "bootstrap/scss/bootstrap";
 @import '~bootstrap/scss/bootstrap';
-//@import 'bootstrap';
+@import './display';
+@import './perfockarta';
+@import './_btn3d';
+@import './color-class';
+@import './panel';
+@import './radio';
+@import './labelmeatal';
 
         .fit-table {
             width: max-content !important;

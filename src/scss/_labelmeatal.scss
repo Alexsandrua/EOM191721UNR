@@ -1,0 +1,27 @@
+.metal-badge {
+  display: inline-block;
+  padding: 1px 4px;
+  
+  /* Шліфований алюміній/сталь за допомогою градієнта */
+  background: linear-gradient(180deg, #08080b 1%, #020203 10%, #1b1728 75%, #0d0f18 100%);
+  
+  /* Рамка та 3D-бортик самої таблички */
+  border: 1px solid #07010f;
+  border-radius: 6px;
+  
+  /* Колір самого тексту — темно-сірий металевий (як фарба у заглибленнях) */
+  color: #74765d !important; 
+  font-family: 'Courier New', Courier, monospace; /* Ретро-шрифт друкарської машинки */
+  font-weight: 30;
+  text-transform: uppercase; /* Великі літери підкреслюють індустріальний стиль */
+  letter-spacing: 1px;
+  
+            
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Коли курсор миші над біркою, вона злегка підсвічується, як справжній метал під лампою */
+.metal-badge:hover {
+  filter: brightness(1.1);
+}

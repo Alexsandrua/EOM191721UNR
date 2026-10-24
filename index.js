@@ -5,51 +5,40 @@ import {
     RouterProvider,
     Navigate,
 } from 'react-router-dom';
-import App from './src/App';
+import AppWrapper from './src/AppWrapper';
 import Resource from "./src/resource/Resource";
-import RoutersCast from "./src/routes/RoutersCast";
+import StateVar from "./src/resource/StateVariables";
 import Db from "./src/resource/Db";
-//Import our custom CSS
+import RoutersCast from "./src/routes/RoutersCast";
 import './src/scss/styles.scss';
 
-let appId = Number(window.location.pathname.split(':')[1]);
-
-if (!appId) {
-    appId = Date.now();
-}
-Resource.configs.idCardServer = appId;
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Navigate to={`/id:${appId}`} replace />,
+        element: <Navigate to={`/${Date.now()}`} replace />,
     },
     {
         path: "/:id",
-        element: < App />,
+        element: <AppWrapper />,
+        loader: async ({ params }) => {
+            const res = await RoutersCast.getTestId(Number(params.id));
+            console.log('INDEX RES ',res)
+            if (res) {
+                if (res.statuCode != 204)
+                    Db.ppz = res.data.punchCard;
+                else Db.ppz = [Resource.punchCard()];
+            } else Db.ppz = [Resource.punchCard()];
+            console.log('INDEX', Db.getPpzAll(), Resource.punchCard());
+            StateVar.sessionId = params.id;
+        },
     },
-])
+]);
+
 const motherContainer = document.getElementById('app');
 const root = ReactDOM.createRoot(motherContainer);
-RoutersCast.getTestId().then((res) => {
-    //  let d =  JSON.parse(data.data); 
-    if (res.statuCode === 200) {
-        Db.setPpz(res.data.punchCard);
-        RoutersCast.postData(Db.getPpzAll(), appId);
-        root.render(
-            <React.StrictMode>
-                <RouterProvider router={router} />
-            </React.StrictMode>
-        );
-    } else {
-        Db.setPpz(Resource.punchCard());
-        RoutersCast.postData(Db.getPpzAll(), appId);
-        root.render(
-            <React.StrictMode>
-                <RouterProvider router={router} />
-            </React.StrictMode>
-        );
-    }
-}).catch((e) => {
-    console.error(e);
-})
 
+root.render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+);
